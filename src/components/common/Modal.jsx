@@ -1,0 +1,102 @@
+import React, { useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { X } from 'lucide-react';
+
+export function Modal({
+  isOpen,
+  onClose,
+  title,
+  subtitle,
+  children,
+  maxWidth = 'max-w-[390px]',
+  scoped = true
+}) {
+  // Close on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && isOpen) onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
+  // Lock scroll
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
+  const containerPosition = scoped ? 'absolute inset-0' : 'fixed inset-0';
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <div className={`${containerPosition} z-50 flex items-end sm:items-center justify-center p-2.5 sm:p-3 overflow-hidden pointer-events-auto select-none`}>
+          {/* Backdrop strictly inside parent container */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={onClose}
+            className={`${containerPosition} bg-black/75 backdrop-blur-md z-0`}
+          />
+
+          {/* Dialog Card / Mobile Bottom Sheet */}
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 50, scale: 0.95 }}
+            transition={{ type: 'spring', damping: 28, stiffness: 350 }}
+            className={`
+              relative w-full ${maxWidth} z-10
+              liquid-glass border-rose-500/35 bg-[#170a24]/95
+              p-4 sm:p-5 rounded-t-[32px] sm:rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.85),0_0_30px_rgba(244,63,94,0.2)]
+              overflow-hidden max-h-[85%] flex flex-col will-change-[transform,opacity]
+            `}
+          >
+            {/* Mobile Sheet Drag Indicator Handle */}
+            <div className="w-12 h-1.5 bg-white/30 rounded-full mx-auto mb-2.5 pointer-events-none" />
+
+            {/* Top ambient specular line */}
+            <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-rose-400/80 to-transparent" />
+
+            {/* Header */}
+            <div className="flex items-start justify-between mb-3 shrink-0">
+              <div className="pr-2">
+                {title && (
+                  <h3 className="text-base sm:text-lg font-bold text-white tracking-tight leading-snug">
+                    {title}
+                  </h3>
+                )}
+                {subtitle && (
+                  <p className="text-[11px] text-rose-300/80 mt-0.5 font-normal leading-normal">
+                    {subtitle}
+                  </p>
+                )}
+              </div>
+              <button
+                onClick={onClose}
+                className="p-1.5 rounded-full bg-white/5 hover:bg-white/10 active:scale-90 text-rose-300/70 hover:text-white transition-all shrink-0 cursor-pointer focus:outline-none"
+                aria-label="Close dialog"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Content (Smooth vertical scrollable area) */}
+            <div className="flex-1 min-h-0 overflow-y-auto pr-0.5 scrollbar-none text-left">
+              {children}
+            </div>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
+  );
+}

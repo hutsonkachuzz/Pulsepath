@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: pulsepath_db
+    restart: always
+    environment:
+      POSTGRES_DB: pulsepath
+      POSTGRES_USER: pulseuser
+      POSTGRES_PASSWORD: pulsepassword123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: pulsepath_backend
+    restart: always
+    environment:
+      DATABASE_URL: postgresql://pulseuser:pulsepassword123@db:5432/pulsepath
+      SECRET_KEY: production-romantic-secret-pulsepath-2026-key
+    ports:
+      - "8000:8000"
+    volumes:
+      - uploads_data:/app/uploads
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
+  uploads_data:

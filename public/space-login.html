@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pulsepath - Private Space</title>
+    <style>
+        body {
+            background-color: #0d0d12;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .modal-box {
+            background: linear-gradient(135deg, #1e1b2e, #121019);
+            border: 1px solid #ff4b5c55;
+            padding: 30px;
+            border-radius: 20px;
+            width: 380px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            color: #fff;
+            text-align: center;
+        }
+        .input-group {
+            position: relative;
+            margin: 20px 0;
+        }
+        input[type="password"] {
+            width: 100%;
+            padding: 12px 15px;
+            background: #232033;
+            border: 1px solid #444;
+            border-radius: 8px;
+            color: #fff;
+            box-sizing: border-box;
+            outline: none;
+            font-size: 15px;
+        }
+        .open-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #ff4b5c, #ff758c);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .open-btn:hover {
+            opacity: 0.9;
+        }
+        .error-msg {
+            color: #ff4b5c;
+            font-size: 13px;
+            margin-top: 8px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="modal-box">
+        <h2>Our Private Space</h2>
+        <p>Enter our master password to open our universe</p>
+        <p style="font-size: 12px; color: #aaa;">Passcode: pulsepath</p>
+
+        <form id="loginForm" onsubmit="handleLogin(event)">
+            <div class="input-group">
+                <input type="password" id="masterPassword" placeholder="Enter Master Password..." required>
+                <div id="errorText" class="error-msg">தவறான பாஸ்வேர்ட்! மீண்டும் முயற்சிக்கவும்.</div>
+            </div>
+            <button type="submit" class="open-btn">✨ Open Our Space →</button>
+        </form>
+    </div>
+
+    <script>
+        function handleLogin(event) {
+            event.preventDefault(); // பக்கத்தை ரீஃப்ரெஷ் செய்வதைத் தவிர்க்கும்
+
+            const enteredPassword = document.getElementById('masterPassword').value.trim();
+            const correctPassword = "pulsepath"; // உங்கள் மாஸ்டர் பாஸ்வேர்ட்
+
+            if (enteredPassword === correctPassword) {
+                // பாஸ்வேர்ட் சரி என்றால் அடுத்த பக்கத்திற்குச் செல்லும்
+                sessionStorage.setItem('pulsepath_logged_in', 'true');
+                window.location.href = "space-home.html"; 
+            } else {
+                // பாஸ்வேர்ட் தவறு என்றால் எரர் காட்டும்
+                const errorDiv = document.getElementById('errorText');
+                errorDiv.style.display = "block";
+                document.getElementById('masterPassword').value = "";
+                document.getElementById('masterPassword').focus();
+            }
+        }
+    </script>
+
+</body>
+</html>

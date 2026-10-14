@@ -1,0 +1,30 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // User Profiles & Settings
+    match /users/{userId} {
+      allow read, write: if true;
+      match /{allSettings=**} {
+        allow read, write: if true;
+      }
+    }
+    
+    // Couple Spaces & All Subcollections (messages, memories, shared_moments, posts, love_thoughts, love_letters, special_dates, moods, presence, daily_answers)
+    match /couples/{coupleId} {
+      allow read, write: if true;
+      
+      match /{subcollection}/{docId} {
+        allow read, write: if true;
+      }
+    }
+
+    // Root collections for shared moments and posts fallback
+    match /shared_moments/{docId} {
+      allow read, write: if true;
+    }
+    match /posts/{docId} {
+      allow read, write: if true;
+    }
+  }
+}

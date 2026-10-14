@@ -1,0 +1,22 @@
+{
+  "name": "PulsePath — Our Private World",
+  "short_name": "PulsePath",
+  "description": "A private digital world that belongs only to two people.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B0813",
+  "theme_color": "#0B0813",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/assets/pulsepath-app-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

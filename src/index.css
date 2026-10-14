@@ -1,0 +1,789 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Base Color Tokens (Deep Luxury Romantic Atmosphere) */
+    --bg-primary: #140518;
+    --bg-surface: #1E0824;
+    --bg-card: rgba(42, 12, 48, 0.72);
+    --border-subtle: rgba(255, 117, 143, 0.25);
+    --border-glow: rgba(255, 77, 109, 0.55);
+    --text-primary: #FFFFFF;
+    --text-secondary: #CBBAD9;
+    --accent-glow: #FF4D6D;
+
+    /* Utopia Fluid Typography Scale (min 360px viewport -> max 1440px viewport) */
+    --fluid-hero: clamp(2.5rem, 1.8rem + 3.2vw, 4.75rem);
+    --fluid-h1: clamp(1.85rem, 1.35rem + 2.1vw, 3.25rem);
+    --fluid-h2: clamp(1.35rem, 1.15rem + 1.25vw, 2.25rem);
+    --fluid-h3: clamp(1.125rem, 1rem + 0.75vw, 1.6rem);
+    --fluid-body: clamp(0.875rem, 0.825rem + 0.25vw, 1.0625rem);
+    --fluid-small: clamp(0.75rem, 0.71rem + 0.18vw, 0.875rem);
+    --fluid-xs: clamp(0.6875rem, 0.65rem + 0.15vw, 0.75rem);
+
+    /* Utopia Fluid Spacing & Padding */
+    --fluid-px: clamp(1rem, 0.75rem + 1.5vw, 2.5rem);
+    --fluid-py: clamp(0.85rem, 0.6rem + 1.2vw, 2rem);
+    --fluid-gap: clamp(0.75rem, 0.5rem + 1vw, 1.75rem);
+    --fluid-card-p: clamp(1rem, 0.85rem + 1vw, 2rem);
+
+    /* Fluid Organic Radius */
+    --fluid-radius: clamp(1rem, 0.8rem + 0.65vw, 1.75rem);
+    --fluid-radius-sm: clamp(0.65rem, 0.55rem + 0.35vw, 1rem);
+    --fluid-radius-lg: clamp(1.25rem, 1rem + 1vw, 2.25rem);
+    --fluid-radius-pill: 9999px;
+
+    /* Liquid Glass Specular & Refraction Tokens (Dark Mode) */
+    --liquid-sheen-top: rgba(255, 255, 255, 0.45);
+    --liquid-sheen-bottom: rgba(255, 117, 143, 0.2);
+    --liquid-bg: rgba(38, 11, 44, 0.68);
+    --liquid-bg-hover: rgba(48, 14, 56, 0.78);
+    --liquid-border: rgba(255, 182, 193, 0.25);
+    --liquid-border-hover: rgba(255, 77, 109, 0.6);
+    --liquid-glow-inner: rgba(255, 77, 109, 0.12);
+    --liquid-glow-inner-hover: rgba(255, 77, 109, 0.25);
+    --liquid-shadow-elevated: 0 20px 48px -12px rgba(18, 2, 22, 0.75), 0 0 30px -5px rgba(255, 77, 109, 0.2);
+  }
+
+  html.light {
+    --bg-primary: #FFF8F9;
+    --bg-surface: #FFF0F3;
+    --bg-card: rgba(255, 255, 255, 0.85);
+    --border-subtle: rgba(255, 182, 193, 0.45);
+    --border-glow: rgba(255, 77, 109, 0.35);
+    --text-primary: #2D1525;
+    --text-secondary: #7A5C6D;
+    --accent-glow: #FF4D6D;
+
+    /* Liquid Glass Specular & Refraction Tokens (Light Mode) */
+    --liquid-sheen-top: rgba(255, 255, 255, 0.85);
+    --liquid-sheen-bottom: rgba(255, 182, 193, 0.3);
+    --liquid-bg: rgba(255, 255, 255, 0.78);
+    --liquid-bg-hover: rgba(255, 255, 255, 0.92);
+    --liquid-border: rgba(255, 182, 193, 0.45);
+    --liquid-border-hover: rgba(255, 77, 109, 0.5);
+    --liquid-glow-inner: rgba(255, 77, 109, 0.05);
+    --liquid-glow-inner-hover: rgba(255, 77, 109, 0.12);
+    --liquid-shadow-elevated: 0 20px 45px -12px rgba(255, 117, 143, 0.22), 0 0 25px -5px rgba(255, 77, 109, 0.1);
+  }
+
+  body,
+  button,
+  input,
+  textarea,
+  select {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "SF Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    text-rendering: optimizeLegibility;
+    letter-spacing: -0.01em;
+  }
+
+  button {
+    font-weight: 500;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .font-romantic {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "SF Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    letter-spacing: -0.02em;
+  }
+
+  h1 {
+    font-weight: 700;
+  }
+
+  h2,
+  h3 {
+    font-weight: 600;
+  }
+
+  h4,
+  h5,
+  h6 {
+    font-weight: 600;
+  }
+}
+
+/* =========================================================
+   BOOTSTRAP-STYLE FLUID CONTAINER UTILITIES
+   ========================================================= */
+.container-fluid {
+  width: 100%;
+  padding-right: var(--fluid-px);
+  padding-left: var(--fluid-px);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.container-fluid-constrained {
+  width: 100%;
+  max-width: 1540px;
+  padding-right: var(--fluid-px);
+  padding-left: var(--fluid-px);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.row-fluid {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: calc(-1 * var(--fluid-gap) / 2);
+  margin-left: calc(-1 * var(--fluid-gap) / 2);
+}
+
+.col-fluid {
+  padding-right: calc(var(--fluid-gap) / 2);
+  padding-left: calc(var(--fluid-gap) / 2);
+}
+
+/* =========================================================
+   UTOPIA FLUID TYPOGRAPHY & SPACING UTILITIES
+   ========================================================= */
+.fluid-hero {
+  font-size: var(--fluid-hero);
+  line-height: 1.08;
+}
+
+.fluid-h1 {
+  font-size: var(--fluid-h1);
+  line-height: 1.15;
+}
+
+.fluid-h2 {
+  font-size: var(--fluid-h2);
+  line-height: 1.22;
+}
+
+.fluid-h3 {
+  font-size: var(--fluid-h3);
+  line-height: 1.3;
+}
+
+.fluid-body {
+  font-size: var(--fluid-body);
+  line-height: 1.6;
+}
+
+.fluid-small {
+  font-size: var(--fluid-small);
+  line-height: 1.5;
+}
+
+.fluid-xs {
+  font-size: var(--fluid-xs);
+  line-height: 1.4;
+}
+
+.fluid-card-p {
+  padding: var(--fluid-card-p);
+}
+
+.fluid-radius {
+  border-radius: var(--fluid-radius);
+}
+
+.fluid-radius-sm {
+  border-radius: var(--fluid-radius-sm);
+}
+
+.fluid-radius-lg {
+  border-radius: var(--fluid-radius-lg);
+}
+
+.fluid-gap {
+  gap: var(--fluid-gap);
+}
+
+/* =========================================================
+   LIQUID GLASS ENGINE & SPECULAR REFRACTION STYLING
+   ========================================================= */
+.liquid-glass {
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(255, 255, 255, 0.02) 40%,
+      rgba(255, 77, 109, 0.05) 100%), var(--liquid-bg);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border: 1px solid var(--liquid-border);
+  border-radius: var(--fluid-radius);
+  box-shadow:
+    inset 0 1.5px 0 0 var(--liquid-sheen-top),
+    inset 0 -1px 0 0 var(--liquid-sheen-bottom),
+    inset 0 0 30px 0 var(--liquid-glow-inner),
+    0 16px 40px -10px rgba(0, 0, 0, 0.45);
+  position: relative;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Top specular light highlight overlay */
+.liquid-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.16) 0%, transparent 65%);
+  pointer-events: none;
+  opacity: 0.85;
+  transition: opacity 0.35s ease;
+}
+
+/* Interactive Liquid Glass Hover Effect */
+.liquid-glass-interactive {
+  cursor: pointer;
+}
+
+.liquid-glass-interactive:hover {
+  transform: translateY(-3px) scale(1.008);
+  border-color: var(--liquid-border-hover);
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.12) 0%,
+      rgba(255, 255, 255, 0.03) 40%,
+      rgba(255, 77, 109, 0.09) 100%), var(--liquid-bg-hover);
+  box-shadow:
+    inset 0 1.5px 0 0 rgba(255, 255, 255, 0.65),
+    inset 0 -1px 0 0 rgba(255, 117, 143, 0.3),
+    inset 0 0 38px 0 var(--liquid-glow-inner-hover),
+    var(--liquid-shadow-elevated);
+}
+
+.liquid-glass-interactive:hover::before {
+  opacity: 1;
+  background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.28) 0%, transparent 60%);
+}
+
+.liquid-glass-interactive:active {
+  transform: translateY(-1px) scale(0.995);
+}
+
+/* Liquid Glass Cards */
+.liquid-card {
+  padding: var(--fluid-card-p);
+  border-radius: var(--fluid-radius);
+  overflow: hidden;
+}
+
+/* Liquid Navigation Bars */
+.liquid-nav {
+  background: linear-gradient(180deg,
+      rgba(255, 255, 255, 0.06) 0%,
+      rgba(26, 18, 43, 0.82) 100%);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border-bottom: 1px solid var(--liquid-border);
+  box-shadow:
+    inset 0 -1px 0 0 var(--liquid-sheen-bottom),
+    0 10px 30px -10px rgba(0, 0, 0, 0.4);
+}
+
+html.light .liquid-nav {
+  background: linear-gradient(180deg,
+      rgba(255, 255, 255, 0.92) 0%,
+      rgba(255, 240, 245, 0.85) 100%);
+}
+
+/* Liquid Pill Badges */
+.liquid-pill {
+  border-radius: var(--fluid-radius-pill);
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.12) 0%,
+      rgba(255, 77, 109, 0.1) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--liquid-border);
+  box-shadow:
+    inset 0 1px 0 0 var(--liquid-sheen-top),
+    inset 0 0 12px 0 rgba(255, 77, 109, 0.1);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  transition: all 0.25s ease;
+}
+
+.liquid-pill:hover {
+  border-color: var(--liquid-border-hover);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.6),
+    0 0 15px rgba(255, 77, 109, 0.3);
+}
+
+/* Backward-Compatible Enhanced Glass Panels */
+.glass-panel {
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.07) 0%,
+      rgba(255, 255, 255, 0.02) 45%,
+      rgba(255, 77, 109, 0.04) 100%), var(--bg-card);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--fluid-radius);
+  box-shadow:
+    inset 0 1.5px 0 0 var(--liquid-sheen-top),
+    inset 0 -1px 0 0 var(--liquid-sheen-bottom),
+    inset 0 0 25px 0 var(--liquid-glow-inner),
+    0 12px 36px 0 rgba(0, 0, 0, 0.35);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.glass-panel-hover:hover {
+  border-color: var(--border-glow);
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0.03) 45%,
+      rgba(255, 77, 109, 0.08) 100%), var(--bg-card);
+  box-shadow:
+    inset 0 1.5px 0 0 rgba(255, 255, 255, 0.55),
+    inset 0 0 30px 0 rgba(255, 77, 109, 0.18),
+    0 18px 45px -10px rgba(255, 77, 109, 0.3);
+  transform: translateY(-2.5px);
+}
+
+/* Liquid Refractive Input Fields */
+.glass-input,
+.liquid-input {
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.06) 0%,
+      rgba(255, 255, 255, 0.02) 100%);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  border-radius: var(--fluid-radius-sm);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.18),
+    inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.25s ease;
+}
+
+.glass-input:focus,
+.liquid-input:focus {
+  outline: none;
+  border-color: #FF4D6D;
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 77, 109, 0.04) 100%);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.4),
+    0 0 20px rgba(255, 77, 109, 0.45);
+}
+
+/* Liquid Shimmer Light Ripple */
+.liquid-shimmer-sweep {
+  position: relative;
+  overflow: hidden;
+}
+
+.liquid-shimmer-sweep::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(60deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.08) 50%,
+      transparent 60%);
+  transform: rotate(25deg);
+  pointer-events: none;
+  animation: liquidSweep 7s infinite linear;
+}
+
+@keyframes liquidSweep {
+  0% {
+    transform: translate(-30%, -30%) rotate(25deg);
+  }
+
+  100% {
+    transform: translate(30%, 30%) rotate(25deg);
+  }
+}
+
+/* Custom Romantic Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 117, 143, 0.25);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 77, 109, 0.6);
+}
+
+/* Radial Glow Backdrops */
+.ambient-glow-rose {
+  background: radial-gradient(circle at 50% 50%, rgba(255, 77, 109, 0.15) 0%, transparent 65%);
+}
+
+.ambient-glow-purple {
+  background: radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.12) 0%, transparent 65%);
+}
+
+/* Envelope Paper Texture Effect */
+.letter-paper {
+  background: linear-gradient(135deg, rgba(255, 250, 240, 0.08) 0%, rgba(255, 240, 245, 0.04) 100%);
+  border: 1px solid rgba(255, 200, 220, 0.2);
+}
+
+/* Floating Heart Keyframes for CSS fallback */
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(0.8) rotate(0deg);
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 0.7;
+  }
+
+  80% {
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: translateY(-400px) scale(1.2) rotate(20deg);
+    opacity: 0;
+  }
+}
+
+.animate-float-up {
+  animation: floatUp 8s ease-in-out infinite;
+}
+
+/* =========================================================
+   IOS MOTION & SWITCHUI HARDWARE ACCELERATION UTILITIES
+   ========================================================= */
+
+/* GPU Hardware Layer Compositing */
+.gpu-accelerated {
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+  will-change: transform, opacity;
+}
+
+/* iOS Spring Tap Micro-Interaction */
+.ios-tap {
+  transition: transform 0.15s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.15s ease;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.ios-tap:active {
+  transform: scale3d(0.96, 0.96, 1);
+  opacity: 0.88;
+}
+
+/* iOS Cupertino Glass Vibrancy */
+.ios-glass {
+  background: rgba(26, 18, 43, 0.75);
+  backdrop-filter: blur(25px) saturate(190%);
+  -webkit-backdrop-filter: blur(25px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+html.light .ios-glass {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(25px) saturate(190%);
+  -webkit-backdrop-filter: blur(25px) saturate(190%);
+  border: 1px solid rgba(255, 182, 193, 0.4);
+}
+
+/* Momentum Touch Scrolling for iOS WebKit */
+.ios-scroll {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+}
+
+/* =========================================================
+   TWO-COLUMN DASHBOARD SCROLLBAR STYLES
+   ========================================================= */
+/* Independent Main Content Scrollbar (Sleek Romantic Glass) */
+#main-content-scroll::-webkit-scrollbar {
+  width: 7px;
+}
+
+#main-content-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#main-content-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 117, 143, 0.22);
+  border-radius: 9999px;
+}
+
+#main-content-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 77, 109, 0.45);
+}
+
+#main-content-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 117, 143, 0.25) transparent;
+}
+
+/* Utility to completely hide scrollbars when stationary */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* =========================================================
+   120Hz / 144Hz GPU HARDWARE ACCELERATION & COMPOSITOR RULES
+   ========================================================= */
+
+/* Force GPU compositing across all interactive glass, cards, tooltips, and modals */
+.liquid-glass,
+.glass-card,
+.liquid-card,
+[role="tooltip"],
+[role="dialog"],
+.modal-backdrop,
+.framer-motion-container {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Hardware accelerated layer promotion for interactive buttons and hover items */
+.liquid-glass-interactive,
+button,
+a,
+[role="button"] {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* High-refresh rate smooth GPU transitions */
+.transition-smooth-gpu {
+  transition-property: transform, opacity, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+/* 120 FPS / 144 FPS GPU Hardware Acceleration Utilities */
+.gpu-accel-120fps {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform, opacity;
+}
+
+/* Hardware accelerated layer promotion */
+.will-change-transform-opacity {
+  will-change: transform, opacity;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Rendering containment for scrollable viewports to isolate paint invalidations */
+#main-content-scroll {
+  contain: layout style;
+  overscroll-behavior-y: contain;
+}
+
+/* =========================================================
+   PERFECT IPHONE MOBILE VIEW STYLES
+   Strictly prevents multi-column squishing inside mobile frame
+   ========================================================= */
+.pulsepath-iphone-frame {
+  font-size: 13.5px;
+}
+
+/* Force multi-column responsive content grids to stack vertically in iPhone */
+.pulsepath-iphone-frame .grid {
+  grid-template-columns: minmax(0, 1fr) !important;
+  gap: 0.85rem !important;
+}
+
+/* Allow 2-columns for square quick tiles or 2-item action buttons */
+.pulsepath-iphone-frame .grid.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 0.65rem !important;
+}
+
+/* Allow 4-columns for subunit countdown blocks (Days, Hours, Mins, Secs) */
+.pulsepath-iphone-frame .grid.grid-cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 0.45rem !important;
+}
+
+.pulsepath-iphone-frame .grid.grid-cols-4>div {
+  min-width: 0 !important;
+  padding: 0.65rem 0.25rem !important;
+  border-radius: 1rem !important;
+}
+
+/* Optimize journey counter container padding inside iPhone frame to give boxes full breathing room */
+.pulsepath-iphone-frame .journey-counter-container {
+  padding: 0.85rem !important;
+  border-radius: 1.15rem !important;
+}
+
+.pulsepath-iphone-frame .journey-hero-title {
+  font-size: 2.25rem !important;
+  line-height: 1.1 !important;
+}
+
+/* Force responsive flex rows to stack vertically inside iPhone */
+.pulsepath-iphone-frame .sm\:flex-row,
+.pulsepath-iphone-frame .md\:flex-row,
+.pulsepath-iphone-frame .lg\:flex-row {
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 0.75rem !important;
+}
+
+/* Fluid scaling for cards and widgets inside iPhone */
+.pulsepath-iphone-frame .liquid-card,
+.pulsepath-iphone-frame .glass-card {
+  padding: 0.9rem !important;
+  border-radius: 1.15rem !important;
+}
+
+.pulsepath-iphone-frame h1 {
+  font-size: 1.35rem !important;
+}
+
+.pulsepath-iphone-frame h2 {
+  font-size: 1.15rem !important;
+}
+
+.pulsepath-iphone-frame h3 {
+  font-size: 1.0rem !important;
+}
+
+/* =========================================================
+   MOBILE CHAT & IPHONE VIEWPORT NATIVE SCROLLBAR & OVERFLOW RULES
+   ========================================================= */
+
+/* 1. Remove all visible scrollbars on vertical and horizontal axes (WhatsApp/Instagram mobile style) */
+.pulsepath-iphone-frame,
+.pulsepath-iphone-frame *,
+.chat-scroll-area,
+.chat-scroll-area *,
+.chat-container,
+.chat-container * {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.pulsepath-iphone-frame::-webkit-scrollbar,
+.pulsepath-iphone-frame *::-webkit-scrollbar,
+.chat-scroll-area::-webkit-scrollbar,
+.chat-scroll-area *::-webkit-scrollbar,
+.chat-container::-webkit-scrollbar,
+.chat-container *::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+/* 2. Prevent Horizontal Movement & Overflow: 100% width, overflow-x hidden, border-box */
+.chat-container {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 0% !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  box-sizing: border-box !important;
+  overflow-x: hidden !important;
+  min-height: 0 !important;
+}
+
+.chat-container *,
+.chat-scroll-area * {
+  box-sizing: border-box;
+}
+
+/* 3. Smooth Vertical Scrolling strictly contained within chat message area */
+.chat-scroll-area {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 0% !important;
+  height: 100% !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  scroll-behavior: smooth !important;
+  -webkit-overflow-scrolling: touch !important;
+  overscroll-behavior-y: contain !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  min-height: 0 !important;
+}
+
+/* 4. CRITICAL: Prevent Flex Item Collapse on all chat children and message bubbles */
+.chat-scroll-area > * {
+  flex-shrink: 0 !important;
+  min-height: min-content !important;
+}
+
+/* =========================================================
+   STRICT MOBILE-FIRST PWA VIEWPORT & TOUCH UTILITIES
+   ========================================================= */
+html, body, #root {
+  height: 100%;
+  min-height: 100dvh;
+  max-width: 100vw;
+  overflow-x: hidden;
+  overscroll-behavior-y: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.safe-area-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.ios-scroll {
+  -webkit-overflow-scrolling: touch !important;
+  scroll-behavior: smooth !important;
+  overscroll-behavior-y: contain !important;
+}
+
+.touch-none-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}

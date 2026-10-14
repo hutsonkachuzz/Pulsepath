@@ -1,0 +1,68 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Production / Build outputs
+dist/
+build/
+out/
+
+# Netlify local runtime & cache
+.netlify/
+
+# Environment variables & secrets
+.env
+.env.*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+!.env.example
+*.pem
+*.key
+serviceAccountKey*.json
+firebase-adminsdk*.json
+
+# Local databases
+*.db
+*.sqlite
+*.sqlite3
+pulsepath.db
+
+# Python & Virtual Environments
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+.pytest_cache/
+
+# Backend uploads (keep folder structure via .gitkeep)
+/backend/uploads/*
+!/backend/uploads/.gitkeep
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor & OS files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+Thumbs.db
