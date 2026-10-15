@@ -2,17 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Pulsepath - Private Space</title>
     <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
         body {
             background-color: #0d0d12;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100dvh;
+            min-height: calc(var(--vh, 1vh) * 100);
+            height: 100dvh;
             margin: 0;
+            padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
         }
         .modal-box {
             background: linear-gradient(135deg, #1e1b2e, #121019);

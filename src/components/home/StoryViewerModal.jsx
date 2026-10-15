@@ -470,7 +470,7 @@ export function StoryViewerModal({
         {/* 3. TOP CHROME: Progress Bars & Instagram Story Header */}
         {/* ============================================================ */}
         <div
-          className={`relative z-20 pt-3 px-3 sm:px-4 flex flex-col gap-2 transition-opacity duration-200 ${
+          className={`relative z-20 pt-[max(0.75rem,calc(env(safe-area-inset-top,0px)+0.5rem))] px-3 sm:px-4 pl-[max(0.75rem,env(safe-area-inset-left,0px))] pr-[max(0.75rem,env(safe-area-inset-right,0px))] flex flex-col gap-2 transition-opacity duration-200 ${
             hideUI ? 'opacity-0 pointer-events-none' : 'opacity-100'
           }`}
         >
@@ -553,7 +553,7 @@ export function StoryViewerModal({
         {/* 4. BOTTOM CHROME: Caption, Seen-by Pill & Actions Bar */}
         {/* ============================================================ */}
         <div
-          className={`relative z-20 pb-4 px-3 sm:px-4 flex flex-col gap-2.5 transition-opacity duration-200 ${
+          className={`relative z-20 pb-[max(1rem,calc(env(safe-area-inset-bottom,0px)+0.75rem))] px-3 sm:px-4 pl-[max(0.75rem,env(safe-area-inset-left,0px))] pr-[max(0.75rem,env(safe-area-inset-right,0px))] flex flex-col gap-2.5 transition-opacity duration-200 ${
             hideUI ? 'opacity-0 pointer-events-none' : 'opacity-100'
           }`}
         >
@@ -710,7 +710,7 @@ export function StoryViewerModal({
                 exit={{ y: '100%' }}
                 transition={{ type: 'spring', damping: 28, stiffness: 350 }}
                 onClick={(e) => e.stopPropagation()}
-                className="w-full max-h-[70vh] rounded-t-3xl bg-[#14081c] border-t border-rose-500/30 p-4 sm:p-5 flex flex-col shadow-[0_-10px_40px_rgba(0,0,0,0.8)]"
+                className="w-full max-h-[min(70dvh,calc(100dvh-2rem))] rounded-t-3xl bg-[#14081c] border-t border-rose-500/30 p-4 sm:p-5 pb-[max(1.25rem,calc(env(safe-area-inset-bottom,0px)+0.75rem))] flex flex-col shadow-[0_-10px_40px_rgba(0,0,0,0.8)]"
               >
                 <div className="w-12 h-1.5 rounded-full bg-white/20 mx-auto mb-3" />
 
@@ -726,7 +726,7 @@ export function StoryViewerModal({
                   </span>
                 </div>
 
-                <div className="mt-3 space-y-3 overflow-y-auto max-h-[50vh] pr-1">
+                <div className="mt-3 space-y-3 overflow-y-auto max-h-[min(50dvh,320px)] pr-1">
                   {viewersList.map((viewer) => (
                     <div
                       key={viewer.id}
@@ -787,7 +787,7 @@ export function StoryViewerModal({
                 exit={{ y: '100%' }}
                 transition={{ type: 'spring', damping: 28, stiffness: 350 }}
                 onClick={(e) => e.stopPropagation()}
-                className="w-full rounded-t-3xl bg-[#14081c] border-t border-rose-500/30 p-4 sm:p-5 flex flex-col shadow-[0_-10px_40px_rgba(0,0,0,0.8)]"
+                className="w-full max-h-[min(70dvh,calc(100dvh-2rem))] rounded-t-3xl bg-[#14081c] border-t border-rose-500/30 p-4 sm:p-5 pb-[max(1.25rem,calc(env(safe-area-inset-bottom,0px)+0.75rem))] flex flex-col shadow-[0_-10px_40px_rgba(0,0,0,0.8)]"
               >
                 <div className="w-12 h-1.5 rounded-full bg-white/20 mx-auto mb-3" />
 

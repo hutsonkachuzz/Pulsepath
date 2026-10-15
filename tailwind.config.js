@@ -126,6 +126,30 @@ export default {
           '0%': { filter: 'drop-shadow(0 0 12px rgba(255, 77, 109, 0.25))' },
           '100%': { filter: 'drop-shadow(0 0 28px rgba(255, 77, 109, 0.55))' },
         }
+      },
+      height: {
+        'dvh': '100dvh',
+        'svh': '100svh',
+        'lvh': '100lvh',
+        'screen-dvh': '100dvh',
+      },
+      minHeight: {
+        'dvh': '100dvh',
+        'screen-dvh': '100dvh',
+      },
+      maxHeight: {
+        'dvh': '100dvh',
+        'screen-dvh': '100dvh',
+      },
+      spacing: {
+        'safe-top': 'env(safe-area-inset-top, 0px)',
+        'safe-bottom': 'env(safe-area-inset-bottom, 0px)',
+        'safe-left': 'env(safe-area-inset-left, 0px)',
+        'safe-right': 'env(safe-area-inset-right, 0px)',
+      },
+      inset: {
+        'safe-top': 'env(safe-area-inset-top, 0px)',
+        'safe-bottom': 'env(safe-area-inset-bottom, 0px)',
       }
     },
   },

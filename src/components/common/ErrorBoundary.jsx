@@ -22,7 +22,10 @@ export class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-romantic-dark text-white flex flex-col items-center justify-center p-6 text-center">
+        <div
+          className="min-h-[100dvh] h-[100dvh] w-full bg-romantic-dark text-white flex flex-col items-center justify-center p-6 text-center pt-[max(1.5rem,env(safe-area-inset-top,0px))] pb-[max(1.5rem,env(safe-area-inset-bottom,0px))] pl-[max(1.5rem,env(safe-area-inset-left,0px))] pr-[max(1.5rem,env(safe-area-inset-right,0px))]"
+          style={{ minHeight: 'calc(var(--vh, 1vh) * 100)', height: 'calc(var(--vh, 1vh) * 100)' }}
+        >
           <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-rose-600 to-pink-500 flex items-center justify-center shadow-glow-sm mb-6 animate-pulse">
             <Heart className="w-8 h-8 text-white fill-white" />
           </div>

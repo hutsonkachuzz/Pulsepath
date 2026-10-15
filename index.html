@@ -14,9 +14,23 @@
     <link rel="apple-touch-icon" href="/assets/pulsepath-app-icon.png" />
 
     <title>PulsePath ❤️ Our Private World</title>
+    <script>
+      (function() {
+        function setVh() {
+          var vh = window.innerHeight * 0.01;
+          document.documentElement.style.setProperty('--vh', vh + 'px');
+        }
+        setVh();
+        window.addEventListener('resize', setVh, { passive: true });
+        window.addEventListener('orientationchange', setVh, { passive: true });
+        if (window.visualViewport) {
+          window.visualViewport.addEventListener('resize', setVh, { passive: true });
+        }
+      })();
+    </script>
   </head>
-  <body class="bg-romantic-dark text-white selection:bg-rose-500 selection:text-white antialiased overflow-x-hidden min-h-screen">
-    <div id="root"></div>
+  <body class="bg-romantic-dark text-white selection:bg-rose-500 selection:text-white antialiased overflow-x-hidden min-h-[100dvh] h-[100dvh] w-full">
+    <div id="root" class="w-full h-full min-h-[100dvh]"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

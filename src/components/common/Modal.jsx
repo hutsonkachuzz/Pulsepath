@@ -37,7 +37,7 @@ export function Modal({
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className={`${containerPosition} z-50 flex items-end sm:items-center justify-center p-2.5 sm:p-3 overflow-hidden pointer-events-auto select-none`}>
+        <div className={`${containerPosition} z-50 flex items-end sm:items-center justify-center p-2 sm:p-3 pb-0 sm:pb-3 overflow-hidden pointer-events-auto select-none`}>
           {/* Backdrop strictly inside parent container */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -52,13 +52,13 @@ export function Modal({
           <motion.div
             initial={{ opacity: 0, y: 50, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 50, scale: 0.95 }}
+            exit={{ opacity: 0, y: 50, scale: 1 }}
             transition={{ type: 'spring', damping: 28, stiffness: 350 }}
             className={`
               relative w-full ${maxWidth} z-10
               liquid-glass border-rose-500/35 bg-[#170a24]/95
-              p-4 sm:p-5 rounded-t-[32px] sm:rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.85),0_0_30px_rgba(244,63,94,0.2)]
-              overflow-hidden max-h-[85%] flex flex-col will-change-[transform,opacity]
+              p-4 sm:p-5 pb-[max(1.25rem,calc(env(safe-area-inset-bottom,0px)+0.85rem))] sm:pb-5 rounded-t-[32px] sm:rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.85),0_0_30px_rgba(244,63,94,0.2)]
+              overflow-hidden max-h-[min(88dvh,calc(100dvh-env(safe-area-inset-top,0px)-1.5rem))] flex flex-col will-change-[transform,opacity]
             `}
           >
             {/* Mobile Sheet Drag Indicator Handle */}

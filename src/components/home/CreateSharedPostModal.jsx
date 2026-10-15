@@ -243,14 +243,14 @@ export function CreateSharedPostModal({ isOpen, onClose, onPostCreated }) {
 
   const modalContent = (
     <AnimatePresence>
-      <div className="fixed inset-0 z-[120] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/85 backdrop-blur-md select-none">
+      <div className="absolute inset-0 z-[120] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/85 backdrop-blur-md select-none">
         {/* Backdrop */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
-          className="fixed inset-0 z-0"
+          className="absolute inset-0 z-0"
         />
 
         {/* Modal Sheet Content */}
@@ -259,7 +259,7 @@ export function CreateSharedPostModal({ isOpen, onClose, onPostCreated }) {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 80, scale: 0.95 }}
           transition={{ type: 'spring', damping: 26, stiffness: 320 }}
-          className="relative z-10 w-full max-w-[430px] max-h-[92vh] overflow-y-auto rounded-t-[32px] sm:rounded-3xl bg-[#14081c] border border-rose-500/30 p-4 sm:p-5 shadow-[0_0_50px_rgba(255,42,122,0.35)] flex flex-col"
+          className="relative z-10 w-full max-w-[430px] max-h-[min(90dvh,calc(100dvh-env(safe-area-inset-top,0px)-1rem))] overflow-y-auto rounded-t-[32px] sm:rounded-3xl bg-[#14081c] border border-rose-500/30 p-4 sm:p-5 pb-[max(1.25rem,calc(env(safe-area-inset-bottom,0px)+0.75rem))] sm:pb-5 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] shadow-[0_0_50px_rgba(255,42,122,0.35)] flex flex-col"
         >
           {/* Header */}
           <div className="flex items-center justify-between pb-3 border-b border-white/10">

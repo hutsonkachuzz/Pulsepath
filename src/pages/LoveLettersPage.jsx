@@ -118,13 +118,13 @@ export function LoveLettersPage() {
       {/* CINEMATIC ENVELOPE OPENING MODAL */}
       <AnimatePresence>
         {selectedLetter && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
+          <div className="fixed sm:absolute inset-0 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedLetter(null)}
-              className="fixed inset-0 bg-black/80 backdrop-blur-md"
+              className="fixed sm:absolute inset-0 bg-black/80 backdrop-blur-md"
             />
 
             <motion.div
@@ -132,12 +132,12 @@ export function LoveLettersPage() {
               animate={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
               exit={{ opacity: 0, scale: 0.8, y: 50 }}
               transition={{ type: 'spring', damping: 25, stiffness: 250 }}
-              className="relative w-full max-w-xl z-10 p-8 sm:p-10 rounded-3xl letter-paper shadow-2xl border border-rose-400/30 text-stone-900 bg-[#FFFDF9]"
+              className="relative w-full max-w-xl max-h-[min(90dvh,calc(100dvh-env(safe-area-inset-top,0px)-2rem))] overflow-y-auto z-10 p-6 sm:p-8 pb-[max(1.5rem,calc(env(safe-area-inset-bottom,0px)+1rem))] rounded-3xl letter-paper shadow-2xl border border-rose-400/30 text-stone-900 bg-[#FFFDF9] flex flex-col"
             >
               {/* Close Icon */}
               <button
                 onClick={() => setSelectedLetter(null)}
-                className="absolute top-4 right-4 p-2 rounded-full text-stone-600 hover:text-stone-900 hover:bg-stone-200/50 transition-colors"
+                className="absolute top-4 right-4 p-2 rounded-full text-stone-600 hover:text-stone-900 hover:bg-stone-200/50 transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -163,7 +163,7 @@ export function LoveLettersPage() {
               </h2>
 
               {/* Letter Body Text */}
-              <div className="max-h-[55vh] overflow-y-auto pr-2">
+              <div className="max-h-[min(50dvh,340px)] overflow-y-auto pr-2">
                 <p className="text-base sm:text-lg text-stone-800 font-normal leading-relaxed whitespace-pre-wrap">
                   {selectedLetter.content}
                 </p>

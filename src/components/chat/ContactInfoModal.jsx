@@ -106,7 +106,7 @@ export function ContactInfoModal({
         <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-gradient-to-b from-rose-600/20 via-purple-600/10 to-transparent rounded-full blur-3xl pointer-events-none" />
 
         {/* TOP APP BAR */}
-        <div className="relative z-10 shrink-0 h-14 px-3 sm:px-4 flex items-center justify-between border-b border-white/[0.08] bg-[#140822]/90 backdrop-blur-xl">
+        <div className="relative z-10 shrink-0 min-h-14 pt-[env(safe-area-inset-top,0px)] px-3 sm:px-4 pl-[max(0.75rem,env(safe-area-inset-left,0px))] pr-[max(0.75rem,env(safe-area-inset-right,0px))] flex items-center justify-between border-b border-white/[0.08] bg-[#140822]/90 backdrop-blur-xl">
           <button
             type="button"
             onClick={onClose}
@@ -130,7 +130,7 @@ export function ContactInfoModal({
         </div>
 
         {/* SCROLLABLE PROFILE BODY */}
-        <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 sm:p-5 space-y-5 chat-scroll-area relative z-10">
+        <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 sm:p-5 pb-[max(2rem,calc(env(safe-area-inset-bottom,0px)+1.5rem))] pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] space-y-5 chat-scroll-area relative z-10">
           {/* HERO PROFILE PICTURE & NAME CARD */}
           <div className="flex flex-col items-center text-center pt-2 pb-4 border-b border-white/[0.08]">
             <div className="relative group">

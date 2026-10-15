@@ -142,7 +142,7 @@ export function ChatThemeModal({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 15 }}
           transition={{ type: 'spring', damping: 26, stiffness: 320 }}
-          className="relative w-full max-w-xl z-10 rounded-3xl liquid-glass border border-rose-500/30 bg-[#160a26]/98 shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+          className="relative w-full max-w-xl z-10 rounded-3xl liquid-glass border border-rose-500/30 bg-[#160a26]/98 shadow-2xl overflow-hidden flex flex-col max-h-[min(90dvh,calc(100dvh-env(safe-area-inset-top,0px)-1.5rem))]"
         >
           {/* Top Bar */}
           <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/10 shrink-0">
@@ -442,7 +442,7 @@ export function ChatThemeModal({
           </div>
 
           {/* Bottom Actions */}
-          <div className="p-4 sm:p-5 border-t border-white/10 bg-black/30 flex items-center justify-between gap-3 shrink-0">
+          <div className="p-4 sm:p-5 pb-[max(1rem,calc(env(safe-area-inset-bottom,0px)+0.75rem))] pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] border-t border-white/10 bg-black/30 flex items-center justify-between gap-3 shrink-0">
             <button
               type="button"
               onClick={onClose}

@@ -6,7 +6,10 @@ import { FourCornerCrystalGlow } from '../effects/FourCornerCrystalGlow';
 
 export function AuthMobileLayout() {
   return (
-    <div className="min-h-screen w-full flex items-center justify-center overflow-hidden bg-romantic-dark text-white relative">
+    <div
+      className="min-h-[100dvh] h-[100dvh] w-full flex items-center justify-center overflow-hidden bg-romantic-dark text-white relative"
+      style={{ minHeight: '100dvh', height: 'calc(var(--vh, 1vh) * 100)' }}
+    >
       {/* 4-Corner Crystal Ambient Entry Glow */}
       <FourCornerCrystalGlow />
 
@@ -14,7 +17,10 @@ export function AuthMobileLayout() {
       <LivingRomanticBackground />
 
       {/* Centered Mobile Device Frame (Edge-to-edge on mobile, 430px smartphone bezel on larger screens) */}
-      <div className="w-full h-screen flex items-center justify-center relative z-10">
+      <div
+        className="w-full h-full min-h-[100dvh] h-[100dvh] flex items-center justify-center relative z-10"
+        style={{ minHeight: '100dvh', height: 'calc(var(--vh, 1vh) * 100)' }}
+      >
         <IPhoneMockupFrame hideAppHeader={true} hideBottomNav={true}>
           <Outlet />
         </IPhoneMockupFrame>

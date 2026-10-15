@@ -48,7 +48,10 @@ export function LoadingScreen({
 
   if (fullScreen) {
     return (
-      <div className="min-h-screen w-full bg-romantic-dark flex items-center justify-center">
+      <div
+        className="min-h-[100dvh] h-[100dvh] w-full bg-romantic-dark flex items-center justify-center p-4 pt-[env(safe-area-inset-top,0px)] pb-[env(safe-area-inset-bottom,0px)]"
+        style={{ minHeight: 'calc(var(--vh, 1vh) * 100)', height: 'calc(var(--vh, 1vh) * 100)' }}
+      >
         {content}
       </div>
     );

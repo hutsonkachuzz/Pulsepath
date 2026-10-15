@@ -206,7 +206,7 @@ function SidebarComponent() {
       <aside
         aria-label="Sidebar Navigation"
         className={`
-          hidden lg:flex flex-col shrink-0 h-screen sticky top-0
+          hidden lg:flex flex-col shrink-0 h-[100dvh] min-h-[100dvh] sticky top-0
           bg-romantic-dark/55 backdrop-blur-2xl border-r border-rose-500/15
           select-none z-30 overflow-visible
           transition-[width] duration-300 ease-in-out

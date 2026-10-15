@@ -882,7 +882,7 @@ export function ChatPage() {
       {/* =========================================================================
           TOP FIXED CHAT HEADER (Native WhatsApp & Instagram Direct UX, ~54px)
           ========================================================================= */}
-      <header className="shrink-0 w-full max-w-full box-border h-13 sm:h-14 px-3 sm:px-4 bg-[#140822]/90 backdrop-blur-2xl border-b border-white/[0.08] flex items-center justify-between z-30 shadow-md relative">
+      <header className="shrink-0 w-full max-w-full box-border h-13 sm:h-14 px-3 sm:px-4 pl-[max(0.75rem,env(safe-area-inset-left,0px))] pr-[max(0.75rem,env(safe-area-inset-right,0px))] bg-[#140822]/90 backdrop-blur-2xl border-b border-white/[0.08] flex items-center justify-between z-30 shadow-md relative">
         {/* Left: Back Arrow + Interactive Circular Profile Picture + Name & Subtitle */}
         <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
           <button
@@ -1004,7 +1004,7 @@ export function ChatPage() {
               <>
                 {/* Full-screen backdrop to capture outside taps and close menu */}
                 <div
-                  className="fixed inset-0 z-40 bg-black/40 backdrop-blur-[1px]"
+                  className="fixed sm:absolute inset-0 z-40 bg-black/40 backdrop-blur-[1px]"
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
@@ -1014,7 +1014,7 @@ export function ChatPage() {
 
                 {/* Dropdown Menu - Styled with rich liquid glass & high z-index */}
                 <div
-                  className="absolute right-0 top-full mt-2 w-64 max-h-[75vh] overflow-y-auto rounded-2xl bg-[#1c0a2e]/98 border border-white/20 backdrop-blur-2xl shadow-[0_16px_50px_rgba(0,0,0,0.85)] p-1.5 z-50 animate-fadeIn select-none scrollbar-none"
+                  className="absolute right-0 top-full mt-2 w-64 max-h-[min(75dvh,400px)] overflow-y-auto rounded-2xl bg-[#1c0a2e]/98 border border-white/20 backdrop-blur-2xl shadow-[0_16px_50px_rgba(0,0,0,0.85)] p-1.5 z-50 animate-fadeIn select-none scrollbar-none"
                   style={{ scrollbarWidth: 'none' }}
                   onClick={(e) => e.stopPropagation()}
                 >
@@ -1626,7 +1626,7 @@ export function ChatPage() {
           FIXED BOTTOM MESSAGE COMPOSER (Liquid Capsule UX)
           ========================================================================= */}
       <footer
-        className="relative shrink-0 w-full max-w-full box-border overflow-x-hidden z-40 bg-[#140822]/95 backdrop-blur-2xl border-t border-white/[0.08] px-2.5 py-2 pb-[max(0.6rem,env(safe-area-inset-bottom))]"
+        className="relative shrink-0 w-full max-w-full box-border overflow-x-hidden z-40 bg-[#140822]/95 backdrop-blur-2xl border-t border-white/[0.08] px-2.5 py-2 pb-[max(0.75rem,calc(env(safe-area-inset-bottom,0px)+0.5rem))] pl-[max(0.625rem,env(safe-area-inset-left,0px))] pr-[max(0.625rem,env(safe-area-inset-right,0px))]"
         style={{
           width: '100%',
           maxWidth: '100%',
@@ -1881,14 +1881,14 @@ export function ChatPage() {
         >
           <button
             onClick={() => setLightboxImage(null)}
-            className="absolute top-4 right-4 p-2 rounded-full bg-white/20 text-white hover:bg-white/30"
+            className="absolute top-[max(1rem,env(safe-area-inset-top,0px))] right-[max(1rem,env(safe-area-inset-right,0px))] p-2 rounded-full bg-white/20 text-white hover:bg-white/30 cursor-pointer"
           >
             <X className="w-6 h-6" />
           </button>
           <img
             src={getAssetUrl(lightboxImage)}
             alt="Zoomed memory"
-            className="max-h-[90vh] max-w-[90vw] object-contain rounded-2xl shadow-2xl"
+            className="max-h-[90dvh] max-w-[90vw] object-contain rounded-2xl shadow-2xl"
           />
         </div>
       )}

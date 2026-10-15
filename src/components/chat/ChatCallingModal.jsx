@@ -90,7 +90,7 @@ export function ChatCallingModal({
       <div className="absolute inset-0 bg-gradient-to-b from-rose-950/20 via-black/80 to-purple-950/40 pointer-events-none" />
 
       {/* Main Call Container Box */}
-      <div className="relative w-full max-w-[340px] rounded-[32px] bg-neutral-900/95 border border-white/15 p-5 sm:p-6 flex flex-col items-center text-center shadow-2xl overflow-hidden select-none">
+      <div className="relative w-full max-w-[340px] max-h-[min(90dvh,calc(100dvh-env(safe-area-inset-top,0px)-2rem))] rounded-[32px] bg-neutral-900/95 border border-white/15 p-5 sm:p-6 pb-[max(1.5rem,calc(env(safe-area-inset-bottom,0px)+1rem))] flex flex-col items-center text-center shadow-2xl overflow-y-auto select-none">
         
         {/* Floating Self Profile Bubble (Top Right) */}
         <div className="absolute top-4 right-4 z-20 flex flex-col items-center">

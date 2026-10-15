@@ -131,10 +131,10 @@ function GalleryPageComponent() {
 
       {/* FULLSCREEN LIGHTBOX */}
       {lightboxData && (
-        <div className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex items-center justify-center p-4">
+        <div className="fixed sm:absolute inset-0 z-50 bg-black/95 backdrop-blur-md flex items-center justify-center p-4">
           <button
             onClick={() => setLightboxData(null)}
-            className="absolute top-4 right-4 p-2.5 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors z-20"
+            className="absolute top-[max(1rem,env(safe-area-inset-top,0px))] right-[max(1rem,env(safe-area-inset-right,0px))] p-2.5 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors z-20 cursor-pointer"
           >
             <X className="w-6 h-6" />
           </button>
@@ -148,7 +148,7 @@ function GalleryPageComponent() {
                     index: (prev.index - 1 + prev.images.length) % prev.images.length
                   }))
                 }
-                className="absolute left-4 p-3 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors z-20"
+                className="absolute left-[max(1rem,env(safe-area-inset-left,0px))] p-3 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors z-20 cursor-pointer"
               >
                 <ChevronLeft className="w-6 h-6" />
               </button>
@@ -159,19 +159,19 @@ function GalleryPageComponent() {
                     index: (prev.index + 1) % prev.images.length
                   }))
                 }
-                className="absolute right-4 p-3 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors z-20"
+                className="absolute right-[max(1rem,env(safe-area-inset-right,0px))] p-3 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors z-20 cursor-pointer"
               >
                 <ChevronRight className="w-6 h-6" />
               </button>
             </>
           )}
 
-          <div className="max-w-4xl max-h-[85vh] flex flex-col items-center">
+          <div className="max-w-4xl max-h-[85dvh] flex flex-col items-center">
             <img
               src={lightboxData.images[lightboxData.index]}
               alt={lightboxData.title}
               decoding="async"
-              className="max-h-[75vh] w-auto rounded-2xl object-contain shadow-2xl"
+              className="max-h-[75dvh] w-auto rounded-2xl object-contain shadow-2xl"
             />
             <div className="mt-4 text-center">
               <h3 className="text-base font-semibold text-white tracking-tight">

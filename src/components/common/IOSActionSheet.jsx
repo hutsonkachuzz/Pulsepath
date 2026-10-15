@@ -18,7 +18,7 @@ export function IOSActionSheet({
   subtitle,
   children,
   showClose = true,
-  maxHeight = 'max-h-[85vh]',
+  maxHeight = 'max-h-[min(85dvh,calc(100dvh-2rem))]',
 }) {
   // Lock body scroll when sheet is active
   useEffect(() => {
@@ -91,7 +91,7 @@ export function IOSActionSheet({
             )}
 
             {/* Sheet Body */}
-            <div className="p-6 overflow-y-auto overscroll-contain flex-1">
+            <div className="p-6 pb-[max(1.5rem,calc(env(safe-area-inset-bottom,0px)+1rem))] pl-[max(1.5rem,env(safe-area-inset-left,0px))] pr-[max(1.5rem,env(safe-area-inset-right,0px))] overflow-y-auto overscroll-contain flex-1">
               {children}
             </div>
           </motion.div>
