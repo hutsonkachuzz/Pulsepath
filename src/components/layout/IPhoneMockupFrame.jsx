@@ -29,19 +29,6 @@ export function IPhoneMockupFrame({
 }) {
   const { couple, partnerMood, myMood } = useCouple();
   const { isDark, toggleTheme } = useTheme();
-  const [currentTime, setCurrentTime] = useState('9:41');
-
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      const hours = now.getHours();
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-      setCurrentTime(`${hours}:${minutes}`);
-    };
-    updateTime();
-    const interval = setInterval(updateTime, 30000);
-    return () => clearInterval(interval);
-  }, []);
 
   const location = useLocation();
   const isChat = location.pathname === '/chat';
@@ -119,74 +106,18 @@ export function IPhoneMockupFrame({
             ========================================================================= */}
         <div id="phone-screen-container" className="relative w-full h-full bg-romantic-dark rounded-none sm:rounded-[40px] overflow-hidden flex flex-col isolate">
           
-          {/* Status Bar / Safe Area Top Spacer */}
-          {!isStoryActive && (
-            <>
-              {/* On real mobile screens (< 640px) when app header is hidden, render safe-area spacer */}
-              {hideAppHeader && !isChat && (
-                <div className="block sm:hidden shrink-0 w-full pt-[env(safe-area-inset-top,0px)] bg-transparent select-none pointer-events-none" />
-              )}
-
-              {/* On desktop browser frame (>= 640px), render simulated iPhone Dynamic Island & status bar */}
-              <div className="hidden sm:flex shrink-0 w-full h-11 sm:h-12 px-4 sm:px-6 pt-2 sm:pt-3 items-center justify-between text-white text-[13px] font-semibold tracking-tight z-40 bg-gradient-to-b from-[#11061c] to-transparent select-none">
-                {/* Left: Real-time Clock */}
-                <div className="w-14 text-left">
-                  <span className="font-semibold tracking-tight text-white/95 tabular-nums text-[13px] sm:text-[14px] leading-none font-sans">
-                    {isChat ? '12:10' : currentTime}
-                  </span>
-                </div>
-
-                {/* Center: Dynamic Island Pill with Interactive Soft Glow */}
-                <div className="w-[112px] sm:w-[120px] h-[28px] sm:h-[30px] bg-black rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.85),inset_0_1px_1px_rgba(255,255,255,0.15)] flex items-center justify-between px-3 mx-auto border border-white/[0.08] relative group">
-                  {/* TrueDepth Front Camera Lens with Sapphire Reflection */}
-                  <div className="w-3 h-3 rounded-full bg-[#080812] border border-[#222238] flex items-center justify-center relative overflow-hidden shadow-inner">
-                    <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-tr from-indigo-900 to-indigo-600/75" />
-                    <div className="w-0.5 h-0.5 rounded-full bg-white/70 absolute top-0.5 left-0.5" />
-                  </div>
-
-                  {/* Ambient Sensor & Active Indicator Dot */}
-                  <div className="flex items-center gap-1.5">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#090914] border border-white/10" />
-                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_5px_#34d399]" />
-                  </div>
-                </div>
-
-                {/* Right: Sharp Mobile Network (Cellular), Wi-Fi, and Battery */}
-                <div className="w-14 flex items-center justify-end gap-1.5 text-white/95">
-                  {/* 4 Sharp Mobile Network Signal Bars */}
-                  <svg className="w-[17px] h-[11px] shrink-0" viewBox="0 0 17 11" fill="none">
-                    <rect x="0.5" y="8" width="2.5" height="3" rx="0.75" fill="currentColor" />
-                    <rect x="4.5" y="5.5" width="2.5" height="5.5" rx="0.75" fill="currentColor" />
-                    <rect x="8.5" y="3" width="2.5" height="8" rx="0.75" fill="currentColor" />
-                    <rect x="12.5" y="0" width="2.5" height="11" rx="0.75" fill="currentColor" />
-                  </svg>
-
-                  {/* Sharp 3-Arc Wi-Fi Icon */}
-                  <svg className="w-[15px] h-[11px] shrink-0" viewBox="0 0 16 12" fill="currentColor">
-                    <path fillRule="evenodd" clipRule="evenodd" d="M8 2.2C10.8 2.2 13.3 3.35 15.1 5.2C15.4 5.5 15.4 6 15.1 6.3C14.8 6.6 14.3 6.6 14 6.3C12.5 4.7 10.4 3.7 8 3.7C5.6 3.7 3.5 4.7 2 6.3C1.7 6.6 1.2 6.6 0.9 6.3C0.6 6 0.6 5.5 0.9 5.2C2.7 3.35 5.2 2.2 8 2.2ZM8 5.7C9.8 5.7 11.4 6.5 12.6 7.8C12.9 8.1 12.9 8.6 12.6 8.9C12.3 9.2 11.8 9.2 11.5 8.9C10.6 7.9 9.4 7.2 8 7.2C6.6 7.2 5.4 7.9 4.5 8.9C4.2 9.2 3.7 9.2 3.4 8.9C3.1 8.6 3.1 8.1 3.4 7.8C4.6 6.5 6.2 5.7 8 5.7ZM6.6 10.7C6.6 9.9 7.2 9.3 8 9.3C8.8 9.3 9.4 9.9 9.4 10.7C9.4 11.5 8.8 12.1 8 12.1C7.2 12.1 6.6 11.5 6.6 10.7Z" />
-                  </svg>
-
-                  {/* Clean Apple iOS Battery Icon */}
-                  <div className="flex items-center shrink-0">
-                    <div className="w-[23px] h-[11.5px] rounded-[3.5px] border-[1.2px] border-white/80 p-[1.5px] flex items-center">
-                      <div className="w-[82%] h-full bg-white rounded-[1.5px]" />
-                    </div>
-                    <div className="w-[1.2px] h-[4px] bg-white/80 rounded-r-[1px] ml-[1px]" />
-                  </div>
-                </div>
-              </div>
-            </>
-          )}
-
           {/* Mobile App Navigation Header */}
           {customHeader ? (
             customHeader
           ) : !hideAppHeader && !isChat && !isStoryActive ? (
             <header
-              className="shrink-0 sticky top-0 z-50 w-full px-3.5 sm:px-4 pt-[env(safe-area-inset-top,12px)] sm:pt-2.5 pb-2.5 flex items-center justify-between border-b border-rose-500/15 bg-[#140518]/90 text-white shadow-md relative"
+              className="top-header shrink-0 sticky top-0 z-[1000] w-full px-3.5 sm:px-4 flex items-center justify-between border-b border-rose-500/15 bg-[#160b1a]/95 text-white shadow-md relative"
               style={{
-                WebkitBackdropFilter: 'blur(12px)',
-                backdropFilter: 'blur(12px)',
+                paddingTop: 'calc(env(safe-area-inset-top, 47px) + 8px)',
+                paddingBottom: '12px',
+                background: 'rgba(22, 11, 26, 0.92)',
+                WebkitBackdropFilter: 'blur(16px)',
+                backdropFilter: 'blur(16px)',
                 WebkitFontSmoothing: 'antialiased',
                 MozOsxFontSmoothing: 'grayscale',
                 transform: 'translateZ(0)'
@@ -302,8 +233,8 @@ export function IPhoneMockupFrame({
                   className="absolute inset-0 bg-black/65 backdrop-blur-md z-40"
                 />
 
-                {/* Popup action items centered above the floating capsule dock inside the frame */}
-                <div className="absolute bottom-[calc(76px+env(safe-area-inset-bottom,0px))] sm:bottom-[80px] left-0 right-0 z-50 flex flex-col items-center justify-end px-4 pointer-events-none">
+                {/* Popup action items centered above the bottom dock inside the frame */}
+                <div className="absolute bottom-[calc(68px+max(10px,env(safe-area-inset-bottom,16px)))] left-0 right-0 z-[1001] flex flex-col items-center justify-end px-4 pointer-events-none">
                   <div className="flex flex-col-reverse items-center gap-2.5 w-full max-w-[270px] pointer-events-auto">
                     {QUICK_ACTIONS.map((action, index) => {
                       const Icon = action.icon;
@@ -343,29 +274,25 @@ export function IPhoneMockupFrame({
           </AnimatePresence>
 
           {/* =========================================================================
-              FLOATING PILL CAPSULE DOCK (iOS Floating Navigation Bar & Home Indicator)
+              BOTTOM NAVIGATION DOCK (Solid Edge-to-Edge Backing - Sits Cleanly at Bottom)
               ========================================================================= */}
           {isStoryActive ? null : !hideBottomNav && !isChat ? (
-            <div className="absolute bottom-0 left-0 right-0 z-30 flex flex-col items-center pointer-events-none select-none px-3 pb-[max(10px,env(safe-area-inset-bottom,12px))] sm:pb-3 pt-6 bg-gradient-to-t from-[#140518] via-[#140518]/90 to-transparent">
+            <nav
+              className="absolute bottom-0 left-0 right-0 z-[1000] flex flex-col items-center select-none px-3 pt-2 pb-[max(10px,env(safe-area-inset-bottom,16px))] bg-[#160b1a]/95 border-t border-rose-500/15 shadow-[0_-8px_30px_rgba(0,0,0,0.7)]"
+              style={{
+                WebkitBackdropFilter: 'blur(16px)',
+                backdropFilter: 'blur(16px)',
+                transform: 'translateZ(0)',
+                WebkitFontSmoothing: 'antialiased'
+              }}
+            >
               <BottomNav
                 onOpenQuickAction={onOpenQuickAction}
                 onOpenMoreMenu={onOpenMoreMenu}
                 isQuickActionOpen={isQuickActionOpen}
               />
-              {/* Sleek iOS Home Indicator Bar - only on desktop mockup frame */}
-              <div className="hidden sm:block w-28 h-1 bg-white/40 rounded-full mt-2 pointer-events-none shadow-sm" />
-            </div>
-          ) : isChat ? (
-            /* Dedicated Bottom Bar for Chat screen on desktop mockup frame only */
-            <div className="hidden sm:flex w-full justify-center bg-[#140822] shrink-0 z-30 select-none pb-1.5 pt-0.5">
-              <div className="w-32 h-1 bg-white/35 rounded-full pointer-events-none shadow-sm" />
-            </div>
-          ) : (
-            /* Dedicated Bottom Bar for Auth views with iOS Home Indicator on desktop */
-            <div className="hidden sm:flex w-full justify-center bg-[#140822] shrink-0 z-30 select-none pb-1.5">
-              <div className="w-32 h-1 bg-white/35 rounded-full my-1.5 pointer-events-none shadow-sm" />
-            </div>
-          )}
+            </nav>
+          ) : null}
 
           {/* =========================================================================
               CONTAINER-SCOPED OVERLAYS (More Menu Drawer & Modals Strictly Inside Frame)

@@ -883,13 +883,15 @@ export function ChatPage() {
           TOP FIXED CHAT HEADER (Native WhatsApp & Instagram Direct UX, ~54px)
           ========================================================================= */}
       <header
-        className="shrink-0 sticky top-0 z-50 w-full max-w-full box-border px-3 sm:px-4 pl-[max(0.75rem,env(safe-area-inset-left,0px))] pr-[max(0.75rem,env(safe-area-inset-right,0px))] pt-[env(safe-area-inset-top,12px)] sm:pt-2.5 pb-2.5 bg-[#140822]/90 border-b border-white/[0.08] flex items-center justify-between shadow-md relative"
+        className="top-header shrink-0 sticky top-0 z-[1000] w-full max-w-full box-border px-3 sm:px-4 pl-[max(0.75rem,env(safe-area-inset-left,0px))] pr-[max(0.75rem,env(safe-area-inset-right,0px))] flex items-center justify-between border-b border-white/[0.08] shadow-md relative"
         style={{
-          WebkitBackdropFilter: 'blur(12px)',
-          backdropFilter: 'blur(12px)',
-          WebkitFontSmoothing: 'antialiased',
-          MozOsxFontSmoothing: 'grayscale',
-          transform: 'translateZ(0)'
+          paddingTop: 'calc(env(safe-area-inset-top, 47px) + 8px)',
+          paddingBottom: '12px',
+          background: 'rgba(22, 11, 26, 0.92)',
+          WebkitBackdropFilter: 'blur(16px)',
+          backdropFilter: 'blur(16px)',
+          transform: 'translateZ(0)',
+          WebkitFontSmoothing: 'antialiased'
         }}
       >
         {/* Left: Back Arrow + Interactive Circular Profile Picture + Name & Subtitle */}
@@ -1652,15 +1654,16 @@ export function ChatPage() {
           FIXED BOTTOM MESSAGE COMPOSER (Liquid Capsule UX)
           ========================================================================= */}
       <footer
-        className="relative shrink-0 w-full max-w-full box-border overflow-x-hidden z-40 bg-[#140822]/95 border-t border-white/[0.08] px-2.5 pt-2 pl-[max(0.625rem,env(safe-area-inset-left,0px))] pr-[max(0.625rem,env(safe-area-inset-right,0px))]"
+        className="shrink-0 w-full max-w-full box-border overflow-x-hidden z-40 bg-[#160b1a]/95 border-t border-white/[0.08] px-2.5 pt-2 pl-[max(0.625rem,env(safe-area-inset-left,0px))] pr-[max(0.625rem,env(safe-area-inset-right,0px))]"
         style={{
           width: '100%',
           maxWidth: '100%',
           boxSizing: 'border-box',
           overflowX: 'hidden',
-          paddingBottom: 'max(10px, env(safe-area-inset-bottom, 0px))',
-          WebkitBackdropFilter: 'blur(12px)',
-          backdropFilter: 'blur(12px)',
+          paddingBottom: 'max(10px, env(safe-area-inset-bottom, 12px))',
+          background: 'rgba(22, 11, 26, 0.95)',
+          WebkitBackdropFilter: 'blur(16px)',
+          backdropFilter: 'blur(16px)',
           WebkitFontSmoothing: 'antialiased',
           MozOsxFontSmoothing: 'grayscale',
           transform: 'translateZ(0)'
