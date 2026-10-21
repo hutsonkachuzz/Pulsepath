@@ -111,45 +111,38 @@ export function IPhoneMockupFrame({
             customHeader
           ) : !hideAppHeader && !isChat && !isStoryActive ? (
             <header
-              className="top-header shrink-0 sticky top-0 z-[1000] w-full px-3.5 sm:px-4 flex items-center justify-between border-b border-rose-500/15 bg-[#160b1a]/95 text-white shadow-md relative"
+              className="top-header shrink-0 sticky top-0 z-[1000] w-full px-3.5 sm:px-4 flex items-center justify-between text-white shadow-md relative"
               style={{
                 paddingTop: 'calc(env(safe-area-inset-top, 47px) + 8px)',
-                paddingBottom: '12px',
-                background: 'rgba(22, 11, 26, 0.92)',
-                WebkitBackdropFilter: 'blur(16px)',
-                backdropFilter: 'blur(16px)',
-                WebkitFontSmoothing: 'antialiased',
-                MozOsxFontSmoothing: 'grayscale',
-                transform: 'translateZ(0)'
+                paddingBottom: '12px'
               }}
             >
               {/* Left: Couple Brand & Status */}
-              <div className="flex items-center gap-2" style={{ transform: 'translateZ(0)' }}>
+              <div className="flex items-center gap-2 relative z-[2]" style={{ transform: 'translate3d(0,0,0)', opacity: 1 }}>
                 <div
                   className="w-7 h-7 rounded-lg bg-gradient-to-tr from-rose-600 to-pink-500 flex items-center justify-center border border-white/20 shadow-sm shrink-0"
-                  style={{ transform: 'translateZ(0)' }}
                 >
                   <Heart className="w-3.5 h-3.5 text-white fill-white" />
                 </div>
-                <div style={{ transform: 'translateZ(0)' }}>
+                <div>
                   <span
                     className="text-xs font-bold text-white block leading-none font-sans"
                     style={{
                       WebkitFontSmoothing: 'antialiased',
                       MozOsxFontSmoothing: 'grayscale',
-                      transform: 'translateZ(0)'
+                      transform: 'translate3d(0,0,0)'
                     }}
                   >
                     {couple?.nickname || "Eren & Mikasa"}
                   </span>
-                  <div className="flex items-center gap-1 mt-0.5" style={{ transform: 'translateZ(0)' }}>
+                  <div className="flex items-center gap-1 mt-0.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                     <span
                       className="text-[10px] text-rose-300/90 font-medium leading-none"
                       style={{
                         WebkitFontSmoothing: 'antialiased',
                         MozOsxFontSmoothing: 'grayscale',
-                        transform: 'translateZ(0)'
+                        transform: 'translate3d(0,0,0)'
                       }}
                     >
                       Private Space
@@ -159,7 +152,7 @@ export function IPhoneMockupFrame({
               </div>
 
               {/* Center / Right: Partner Mood Pill, Theme Toggle, & Mobile Drawer Trigger */}
-              <div className="flex items-center gap-1.5 shrink-0" style={{ transform: 'translateZ(0)' }}>
+              <div className="flex items-center gap-1.5 shrink-0 relative z-[2]" style={{ transform: 'translate3d(0,0,0)', opacity: 1 }}>
                 {/* Status Indicator Pill */}
                 {onOpenMoodModal && (
                   <button
@@ -170,7 +163,7 @@ export function IPhoneMockupFrame({
                     style={{
                       WebkitFontSmoothing: 'antialiased',
                       MozOsxFontSmoothing: 'grayscale',
-                      transform: 'translateZ(0)'
+                      transform: 'translate3d(0,0,0)'
                     }}
                   >
                     <span>{myMood?.emoji || partnerMood?.emoji || '❤️'}</span>
@@ -184,7 +177,6 @@ export function IPhoneMockupFrame({
                   onClick={toggleTheme}
                   className="p-1.5 rounded-lg text-rose-200/80 hover:text-white hover:bg-white/10 active:scale-90 transition-all cursor-pointer"
                   aria-label="Toggle theme"
-                  style={{ transform: 'translateZ(0)' }}
                 >
                   {isDark ? <Sun className="w-3.5 h-3.5 text-amber-300" /> : <Moon className="w-3.5 h-3.5 text-rose-400" />}
                 </button>
@@ -197,7 +189,6 @@ export function IPhoneMockupFrame({
                     className="p-1.5 rounded-lg text-rose-200 hover:text-white hover:bg-white/10 active:scale-90 transition-all cursor-pointer"
                     aria-label="Open Space Menu Drawer"
                     title="Menu"
-                    style={{ transform: 'translateZ(0)' }}
                   >
                     <Menu className="w-4 h-4 text-white" />
                   </button>
@@ -212,7 +203,7 @@ export function IPhoneMockupFrame({
             className={
               isChat
                 ? 'flex-1 min-h-0 h-full w-full max-w-full overflow-hidden flex flex-col p-0 pb-0 box-border chat-container focus:outline-none'
-                : 'flex-1 overflow-y-auto overflow-x-hidden px-3.5 py-4 pb-[calc(90px+env(safe-area-inset-bottom,20px))] sm:pb-28 ios-scroll pulsepath-iphone-frame focus:outline-none'
+                : 'flex-1 overflow-y-auto overflow-x-hidden px-3.5 py-4 pb-24 sm:pb-28 ios-scroll pulsepath-iphone-frame focus:outline-none'
             }
             style={isChat ? { flex: '1 1 0%', height: '100%', minHeight: 0, width: '100%', maxWidth: '100%', boxSizing: 'border-box', overflow: 'hidden' } : {}}
           >
@@ -234,7 +225,7 @@ export function IPhoneMockupFrame({
                 />
 
                 {/* Popup action items centered above the bottom dock inside the frame */}
-                <div className="absolute bottom-[calc(68px+max(10px,env(safe-area-inset-bottom,16px)))] left-0 right-0 z-[1001] flex flex-col items-center justify-end px-4 pointer-events-none">
+                <div className="absolute bottom-[72px] left-0 right-0 z-[1001] flex flex-col items-center justify-end px-4 pointer-events-none">
                   <div className="flex flex-col-reverse items-center gap-2.5 w-full max-w-[270px] pointer-events-auto">
                     {QUICK_ACTIONS.map((action, index) => {
                       const Icon = action.icon;
@@ -274,16 +265,14 @@ export function IPhoneMockupFrame({
           </AnimatePresence>
 
           {/* =========================================================================
-              BOTTOM NAVIGATION DOCK (Solid Edge-to-Edge Backing - Sits Cleanly at Bottom)
+              FLOATING PILL CAPSULE DOCK (Anchored cleanly at bottom: 8px without dead safe-area gap)
               ========================================================================= */}
           {isStoryActive ? null : !hideBottomNav && !isChat ? (
-            <nav
-              className="absolute bottom-0 left-0 right-0 z-[1000] flex flex-col items-center select-none px-3 pt-2 pb-[max(10px,env(safe-area-inset-bottom,16px))] bg-[#160b1a]/95 border-t border-rose-500/15 shadow-[0_-8px_30px_rgba(0,0,0,0.7)]"
+            <div
+              className="absolute left-0 right-0 z-[1000] flex flex-col items-center pointer-events-none select-none px-3"
               style={{
-                WebkitBackdropFilter: 'blur(16px)',
-                backdropFilter: 'blur(16px)',
-                transform: 'translateZ(0)',
-                WebkitFontSmoothing: 'antialiased'
+                bottom: '8px',
+                marginBottom: 0
               }}
             >
               <BottomNav
@@ -291,7 +280,7 @@ export function IPhoneMockupFrame({
                 onOpenMoreMenu={onOpenMoreMenu}
                 isQuickActionOpen={isQuickActionOpen}
               />
-            </nav>
+            </div>
           ) : null}
 
           {/* =========================================================================

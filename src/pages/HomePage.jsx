@@ -328,7 +328,7 @@ export function HomePage() {
       variants={dashboardContainerVariants}
       initial="hidden"
       animate="visible"
-      className="space-y-4 sm:space-y-5 w-full pb-[calc(90px+env(safe-area-inset-bottom,20px))] relative"
+      className="space-y-4 sm:space-y-5 w-full pb-24 relative"
     >
       {/* 1. Dynamic Romantic Greeting (Top bar, greeting, and Send Warmth untouched) */}
       <motion.div variants={widgetPopVariant}>

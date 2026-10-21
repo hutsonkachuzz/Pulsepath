@@ -886,16 +886,11 @@ export function ChatPage() {
         className="top-header shrink-0 sticky top-0 z-[1000] w-full max-w-full box-border px-3 sm:px-4 pl-[max(0.75rem,env(safe-area-inset-left,0px))] pr-[max(0.75rem,env(safe-area-inset-right,0px))] flex items-center justify-between border-b border-white/[0.08] shadow-md relative"
         style={{
           paddingTop: 'calc(env(safe-area-inset-top, 47px) + 8px)',
-          paddingBottom: '12px',
-          background: 'rgba(22, 11, 26, 0.92)',
-          WebkitBackdropFilter: 'blur(16px)',
-          backdropFilter: 'blur(16px)',
-          transform: 'translateZ(0)',
-          WebkitFontSmoothing: 'antialiased'
+          paddingBottom: '12px'
         }}
       >
         {/* Left: Back Arrow + Interactive Circular Profile Picture + Name & Subtitle */}
-        <div className="flex items-center gap-2 sm:gap-2.5 min-w-0" style={{ transform: 'translateZ(0)' }}>
+        <div className="flex items-center gap-2 sm:gap-2.5 min-w-0 relative z-[2]" style={{ transform: 'translate3d(0,0,0)', opacity: 1 }}>
           <button
             type="button"
             onClick={() => navigate('/home')}
@@ -971,7 +966,7 @@ export function ChatPage() {
         </div>
 
         {/* Right: Integrated Control Buttons (Voice call, Video call, Search, More 3-dot menu) */}
-        <div className="flex items-center gap-1 sm:gap-1.5 shrink-0 text-white/80">
+        <div className="flex items-center gap-1 sm:gap-1.5 shrink-0 text-white/80 relative z-[2]" style={{ transform: 'translate3d(0,0,0)', opacity: 1 }}>
           {/* Voice Call Button */}
           <button
             type="button"
@@ -1654,19 +1649,19 @@ export function ChatPage() {
           FIXED BOTTOM MESSAGE COMPOSER (Liquid Capsule UX)
           ========================================================================= */}
       <footer
-        className="shrink-0 w-full max-w-full box-border overflow-x-hidden z-40 bg-[#160b1a]/95 border-t border-white/[0.08] px-2.5 pt-2 pl-[max(0.625rem,env(safe-area-inset-left,0px))] pr-[max(0.625rem,env(safe-area-inset-right,0px))]"
+        className="shrink-0 w-full max-w-full box-border overflow-x-hidden z-40 bg-[#160b1a]/96 border-t border-white/[0.08] px-2.5 pt-2 pl-[max(0.625rem,env(safe-area-inset-left,0px))] pr-[max(0.625rem,env(safe-area-inset-right,0px))]"
         style={{
           width: '100%',
           maxWidth: '100%',
           boxSizing: 'border-box',
           overflowX: 'hidden',
-          paddingBottom: 'max(10px, env(safe-area-inset-bottom, 12px))',
-          background: 'rgba(22, 11, 26, 0.95)',
-          WebkitBackdropFilter: 'blur(16px)',
-          backdropFilter: 'blur(16px)',
+          bottom: 0,
+          marginBottom: 0,
+          paddingBottom: '8px',
+          background: 'rgba(22, 11, 26, 0.96)',
           WebkitFontSmoothing: 'antialiased',
           MozOsxFontSmoothing: 'grayscale',
-          transform: 'translateZ(0)'
+          transform: 'translate3d(0, 0, 0)'
         }}
       >
         {/* Replying Banner */}
