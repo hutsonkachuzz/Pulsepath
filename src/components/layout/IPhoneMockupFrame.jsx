@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, Sparkles, Mail, Image, CalendarHeart, Sun, Moon, Menu } from 'lucide-react';
+import { Heart, Sparkles, Mail, Image, CalendarHeart, Sun, Moon, Menu, Camera } from 'lucide-react';
 import { useCouple } from '../../context/CoupleContext';
 import { useTheme } from '../../context/ThemeContext';
+import { useStreak } from '../../context/StreakContext';
+import { StreakBadge } from '../snaps/StreakBadge';
 import { BottomNav } from './BottomNav';
 
 const QUICK_ACTIONS = [
+  { id: 'snap', label: 'Pulse Snap 📷', icon: Camera, color: 'from-purple-600 via-pink-500 to-rose-500' },
   { id: 'date', label: 'Special Date', icon: CalendarHeart, color: 'from-amber-500 via-rose-500 to-pink-500' },
   { id: 'photo', label: 'Photo Memory', icon: Image, color: 'from-purple-500 via-pink-500 to-rose-400' },
   { id: 'letter', label: 'Love Letter', icon: Mail, color: 'from-rose-600 via-pink-600 to-purple-600' },
@@ -29,6 +32,7 @@ export function IPhoneMockupFrame({
 }) {
   const { couple, partnerMood, myMood } = useCouple();
   const { isDark, toggleTheme } = useTheme();
+  const { openCamera } = useStreak();
 
   const location = useLocation();
   const isChat = location.pathname === '/chat';
@@ -151,8 +155,11 @@ export function IPhoneMockupFrame({
                 </div>
               </div>
 
-              {/* Center / Right: Partner Mood Pill, Theme Toggle, & Mobile Drawer Trigger */}
+              {/* Center / Right: Streak Badge, Partner Mood Pill, Theme Toggle, & Mobile Drawer Trigger */}
               <div className="flex items-center gap-1.5 shrink-0 relative z-[2]" style={{ transform: 'translate3d(0,0,0)', opacity: 1 }}>
+                {/* Glowing Streak Pill Badge */}
+                <StreakBadge size="sm" />
+
                 {/* Status Indicator Pill */}
                 {onOpenMoodModal && (
                   <button
@@ -167,7 +174,7 @@ export function IPhoneMockupFrame({
                     }}
                   >
                     <span>{myMood?.emoji || partnerMood?.emoji || '❤️'}</span>
-                    <span className="truncate max-w-[75px]">{myMood?.mood || partnerMood?.mood || 'Loved'}</span>
+                    <span className="truncate max-w-[70px]">{myMood?.mood || partnerMood?.mood || 'Loved'}</span>
                   </button>
                 )}
 
@@ -242,7 +249,11 @@ export function IPhoneMockupFrame({
                             damping: 26
                           }}
                           onClick={() => {
-                            if (onSelectQuickAction) onSelectQuickAction(action.id);
+                            if (action.id === 'snap') {
+                              openCamera();
+                            } else if (onSelectQuickAction) {
+                              onSelectQuickAction(action.id);
+                            }
                             if (onCloseQuickAction) onCloseQuickAction();
                           }}
                           className="w-full flex items-center justify-between px-4 py-2.5 rounded-2xl liquid-glass border border-white/20 bg-[#1b0a2c]/95 hover:bg-[#27103f] hover:border-rose-400/60 shadow-[0_10px_28px_rgba(0,0,0,0.7),0_0_18px_rgba(244,63,94,0.25)] group focus:outline-none transition-all active:scale-95 cursor-pointer backdrop-blur-2xl"
@@ -269,7 +280,7 @@ export function IPhoneMockupFrame({
               ========================================================================= */}
           {isStoryActive ? null : !hideBottomNav && !isChat ? (
             <div
-              className="absolute left-0 right-0 z-[1000] flex flex-col items-center pointer-events-none select-none px-3"
+              className="ios-bottom-nav-dock absolute left-0 right-0 z-[1000] flex flex-col items-center pointer-events-none select-none px-3"
               style={{
                 bottom: '8px',
                 marginBottom: 0

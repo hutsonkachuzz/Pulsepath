@@ -31,6 +31,8 @@ import { useSecurity } from '../../context/SecurityContext';
 import { AppLockOverlay } from '../security/AppLockOverlay';
 import { PrivacyBlurShield } from '../security/PrivacyBlurShield';
 import { CamouflageDisguise } from '../security/CamouflageDisguise';
+import { StreakHubModal } from '../snaps/StreakHubModal';
+import { PulseSnapCameraModal } from '../snaps/PulseSnapCameraModal';
 import {
   addMemory,
   addLoveThought,
@@ -716,6 +718,10 @@ export function AppLayout() {
               <PrivacyBlurShield />
               <CamouflageDisguise />
               <AppLockOverlay />
+
+              {/* Snapchat-Style Streak Hub & Pulse Snap Camera Modals */}
+              <StreakHubModal />
+              <PulseSnapCameraModal />
             </>
           }
         >

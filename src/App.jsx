@@ -5,6 +5,7 @@ import { ViewModeProvider } from './context/ViewModeContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { CoupleProvider } from './context/CoupleContext';
 import { SecurityProvider } from './context/SecurityContext';
+import { StreakProvider } from './context/StreakContext';
 
 import { AppLayout } from './components/layout/AppLayout';
 import { AuthMobileLayout } from './components/layout/AuthMobileLayout';
@@ -58,7 +59,8 @@ export default function App() {
           <AuthProvider>
             <CoupleProvider>
               <SecurityProvider>
-                <BrowserRouter>
+                <StreakProvider>
+                  <BrowserRouter>
                   <Routes>
                     {/* Public Authentication & Onboarding Routes in Mobile Shell */}
                     <Route element={<AuthMobileLayout />}>
@@ -93,11 +95,12 @@ export default function App() {
                     <Route path="*" element={<Navigate to="/" replace />} />
                   </Routes>
                 </BrowserRouter>
-              </SecurityProvider>
-            </CoupleProvider>
-          </AuthProvider>
-        </ViewModeProvider>
-      </ThemeProvider>
-    </ErrorBoundary>
+              </StreakProvider>
+            </SecurityProvider>
+          </CoupleProvider>
+        </AuthProvider>
+      </ViewModeProvider>
+    </ThemeProvider>
+  </ErrorBoundary>
   );
 }

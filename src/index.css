@@ -942,3 +942,54 @@ header.ios-header > *,
 .feed-container-ios {
   padding-bottom: calc(90px + env(safe-area-inset-bottom, 20px));
 }
+
+/* =========================================================================
+   IPHONE 15 / IOS SAFARI / PWA STANDALONE PIXEL-PERFECT OVERRIDES
+   (Strictly isolated via WebKit query so Android Chrome layout remains 100% untouched)
+   ========================================================================= */
+@supports (-webkit-touch-callout: none) {
+  /* 1. iPhone 15 Bottom Navigation Dock: Flush to screen bottom with zero safe-area gap */
+  .ios-bottom-nav-dock {
+    bottom: 2px !important;
+    left: 8px !important;
+    right: 8px !important;
+    padding-bottom: 0px !important;
+    margin-bottom: 0px !important;
+  }
+
+  /* 2. iPhone 15 Chat Input Bar: Flush to absolute bottom without black space */
+  .ios-chat-footer,
+  footer.ios-chat-footer {
+    bottom: 0px !important;
+    padding-bottom: 4px !important;
+    margin-bottom: 0px !important;
+  }
+
+  /* 3. iPhone 15 Top Header Razor-Sharp Resolution & Glass Isolation */
+  .top-header,
+  header.top-header {
+    background: transparent !important;
+    transform: translate3d(0, 0, 0) !important;
+    -webkit-font-smoothing: antialiased !important;
+  }
+
+  .top-header::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: -1 !important;
+    background: rgba(22, 11, 26, 0.96) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    backdrop-filter: blur(12px) !important;
+    pointer-events: none !important;
+  }
+
+  .top-header > * {
+    position: relative !important;
+    z-index: 2 !important;
+    transform: translate3d(0, 0, 0) !important;
+    opacity: 1 !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+  }
+}

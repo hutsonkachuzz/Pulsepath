@@ -10,6 +10,10 @@ import { ContactInfoModal } from '../components/chat/ContactInfoModal';
 import { getChatTheme, DEFAULT_CHAT_THEME } from '../config/chatThemes';
 import { useAuth } from '../context/AuthContext';
 import { useCouple } from '../context/CoupleContext';
+import { useStreak } from '../context/StreakContext';
+import { StreakBadge } from '../components/snaps/StreakBadge';
+import { SnapMessageBubble } from '../components/snaps/SnapMessageBubble';
+import { PulseSnapViewerModal } from '../components/snaps/PulseSnapViewerModal';
 import {
   subscribeToMessages,
   sendMessage,
@@ -299,6 +303,33 @@ const CANONICAL_MESSAGES = [
     created_at: '2024-10-07T19:05:00.000Z',
     reactions: { '❤️': ['user_mikasa_202'] },
     seenAt: '2024-10-07T19:06:00.000Z'
+  },
+  {
+    id: 'canon_snap_mikasa_today',
+    dateBadge: 'Today',
+    senderId: 'user_mikasa_202',
+    sender_id: 'user_mikasa_202',
+    senderName: 'Mikasa',
+    sender_name: 'Mikasa',
+    type: 'pulse_snap',
+    content: '[SNAP]: Evening warm tea for us 🕯️',
+    snapData: {
+      id: 'snap_demo_1',
+      senderName: 'Mikasa',
+      mediaUrl: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80',
+      caption: 'Evening warmth waiting for you ☕🕯️',
+      filterCss: 'sepia(0.25) saturate(1.4) contrast(1.05)',
+      showStreakStamp: true,
+      streakDay: 12,
+      streakEmoji: '🔥',
+      timerMode: '10s',
+      timerDuration: 10,
+      unopened: true,
+      createdAt: '2024-10-08T18:00:00.000Z'
+    },
+    displayTime: '10:06 AM',
+    createdAt: '2024-10-08T10:06:00.000Z',
+    reactions: {}
   }
 ];
 
@@ -315,6 +346,9 @@ export function ChatPage() {
     updateContactInfo,
     partnerMood
   } = useCouple();
+
+  const { openCamera } = useStreak();
+  const [activeViewingSnap, setActiveViewingSnap] = useState(null);
 
   // Scoped Chat Theme (persisted in Firestore & localStorage)
   const [theme, setTheme] = useState(() => {
@@ -593,6 +627,70 @@ export function ChatPage() {
     window.addEventListener('pulsepath_sync_chat', handleSyncChat);
     return () => window.removeEventListener('pulsepath_sync_chat', handleSyncChat);
   }, [scrollToBottom]);
+
+  // Handle Opening / Viewing Snapchat-Style Pulse Snaps
+  const handleOpenSnap = useCallback((snapItem) => {
+    setActiveViewingSnap(snapItem);
+    // Mark snap as opened in messages array & localStorage
+    setMessages((prev) =>
+      prev.map((m) => {
+        const matches =
+          m.id === snapItem.id ||
+          (m.snapData && (m.snapData.id === snapItem.id || m.snapData.createdAt === snapItem.createdAt));
+        if (matches) {
+          return {
+            ...m,
+            unopened: false,
+            snapData: {
+              ...(m.snapData || m),
+              unopened: false,
+              openedAt: Date.now()
+            }
+          };
+        }
+        return m;
+      })
+    );
+  }, []);
+
+  // Listen for sent snaps from PulseSnapCameraModal
+  useEffect(() => {
+    const handleSnapSent = (e) => {
+      const snapData = e.detail;
+      if (!snapData) return;
+      const now = new Date();
+      const effectiveSenderId = currentUserId || currentUser?.id || 'user_eren_101';
+      const effectiveSenderName = currentUser?.name || 'Eren';
+      const msgId = `snap_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`;
+
+      const newMsg = {
+        id: msgId,
+        coupleId: activeCoupleId || 'demo_couple_123',
+        senderId: effectiveSenderId,
+        senderName: effectiveSenderName,
+        type: 'pulse_snap',
+        content: `[SNAP]: ${snapData.caption || 'Pulse Snap'}`,
+        snapData: { ...snapData, unopened: false },
+        unopened: false,
+        createdAt: now.toISOString(),
+        displayTime: formatMessageTime(now, '10:06 AM'),
+        reactions: {}
+      };
+
+      setMessages((prev) => {
+        const next = [...prev, newMsg];
+        try {
+          localStorage.setItem(`pulsepath_chat_messages_v3_${activeCoupleId || 'demo_couple_123'}`, JSON.stringify(next));
+        } catch {}
+        return next;
+      });
+
+      scrollToBottom(true);
+    };
+
+    window.addEventListener('pulsepath_snap_sent', handleSnapSent);
+    return () => window.removeEventListener('pulsepath_snap_sent', handleSnapSent);
+  }, [activeCoupleId, currentUserId, currentUser, scrollToBottom]);
 
   // Clean up typing indicator when navigating away
   useEffect(() => {
@@ -943,6 +1041,7 @@ export function ChatPage() {
                   alt="PulsePath"
                   className="shrink-0 opacity-80"
                 />
+                <StreakBadge size="sm" className="shrink-0" />
               </div>
               <div
                 className="text-[11px] font-medium text-emerald-400/90 leading-none flex items-center gap-1 mt-0.5"
@@ -1319,6 +1418,11 @@ export function ChatPage() {
 
             const isBigHeart = content === '❤️' || content === '💖' || content === '💕';
 
+            const isSnap =
+              msg.type === 'pulse_snap' ||
+              Boolean(msg.snapData) ||
+              content.startsWith('[SNAP]:');
+
             // Clean embedded time display (strictly never 'Invalid Date')
             const rawDisplay = msg.displayTime;
             const validDisplay = (rawDisplay && rawDisplay !== 'Invalid Date' && !rawDisplay.includes('NaN')) ? rawDisplay : null;
@@ -1451,6 +1555,17 @@ export function ChatPage() {
                         </div>
                       )}
 
+                      {/* CONTENT 0: Snapchat-Style Pulse Snap */}
+                      {isSnap && (
+                        <div className="my-0.5">
+                          <SnapMessageBubble
+                            snap={msg.snapData || msg}
+                            isOutgoing={isOutgoing}
+                            onOpenSnap={handleOpenSnap}
+                          />
+                        </div>
+                      )}
+
                       {/* CONTENT 1: The Two Heart Image Bubbles (10:07 AM canon element) */}
                       {isDualHearts && (
                         <div className="rounded-[18px] overflow-hidden my-0.5">
@@ -1519,7 +1634,7 @@ export function ChatPage() {
                       )}
 
                       {/* CONTENT 5: Text Message (Wrapping naturally inside bubble) */}
-                      {!isImage && !isDualHearts && !isVoice && !isBigHeart && (
+                      {!isImage && !isDualHearts && !isVoice && !isBigHeart && !isSnap && (
                         <div className="relative">
                           <p className="text-[13.5px] sm:text-[14px] leading-relaxed whitespace-pre-wrap break-words font-sans text-white select-text">
                             {content.length > 150 && !expandedMessages[msg.id]
@@ -1649,7 +1764,7 @@ export function ChatPage() {
           FIXED BOTTOM MESSAGE COMPOSER (Liquid Capsule UX)
           ========================================================================= */}
       <footer
-        className="shrink-0 w-full max-w-full box-border overflow-x-hidden z-40 bg-[#160b1a]/96 border-t border-white/[0.08] px-2.5 pt-2 pl-[max(0.625rem,env(safe-area-inset-left,0px))] pr-[max(0.625rem,env(safe-area-inset-right,0px))]"
+        className="ios-chat-footer shrink-0 w-full max-w-full box-border overflow-x-hidden z-40 bg-[#160b1a]/96 border-t border-white/[0.08] px-2.5 pt-2 pl-[max(0.625rem,env(safe-area-inset-left,0px))] pr-[max(0.625rem,env(safe-area-inset-right,0px))]"
         style={{
           width: '100%',
           maxWidth: '100%',
@@ -1865,6 +1980,17 @@ export function ChatPage() {
             {/* Right Action Buttons inside the capsule (Voice & Instant Heart) */}
             {!inputText.trim() ? (
               <div className="flex items-center gap-1 shrink-0 pl-1 pr-0.5">
+                {/* Dedicated Pulse Snap Camera Button */}
+                <button
+                  type="button"
+                  onClick={openCamera}
+                  className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-rose-300 hover:text-white hover:bg-white/10 active:scale-90 transition-all cursor-pointer shrink-0 focus:outline-none"
+                  title="Send Pulse Snap 📷"
+                  aria-label="Send Pulse Snap"
+                >
+                  <Camera className="w-4 h-4 text-rose-300" />
+                </button>
+
                 {/* Voice Microphone Button */}
                 <button
                   type="button"
@@ -2120,6 +2246,17 @@ export function ChatPage() {
           )}
         </div>
       </Modal>
+
+      {/* Snapchat-Style Full-Screen Snap Viewer Modal */}
+      {activeViewingSnap && (
+        <PulseSnapViewerModal
+          snap={activeViewingSnap}
+          onClose={() => setActiveViewingSnap(null)}
+          onReactHeart={(snapId) => {
+            handleDoubleTap({ id: snapId });
+          }}
+        />
+      )}
     </motion.div>
   );
 }
