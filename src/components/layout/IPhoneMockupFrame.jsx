@@ -69,7 +69,7 @@ export function IPhoneMockupFrame({
           bg-[#12071d] shadow-none sm:shadow-[0_25px_80px_rgba(0,0,0,0.92),0_0_40px_rgba(244,63,94,0.18),inset_0_0_0_1.5px_rgba(255,255,255,0.18),inset_0_0_0_3px_#10071c]
           flex flex-col will-change-[transform,opacity]"
         style={{
-          height: 'calc(var(--vh, 1vh) * 100)',
+          height: '100dvh',
           maxHeight: '100dvh',
           transform: 'translate3d(0, 0, 0)',
           backfaceVisibility: 'hidden'
@@ -122,8 +122,10 @@ export function IPhoneMockupFrame({
           {/* Status Bar / Safe Area Top Spacer */}
           {!isStoryActive && (
             <>
-              {/* On real mobile screens (< 640px), insert safe-area-inset-top spacer so content clears physical Notch / Dynamic Island */}
-              <div className="block sm:hidden shrink-0 w-full pt-[env(safe-area-inset-top,0px)] bg-transparent select-none pointer-events-none" />
+              {/* On real mobile screens (< 640px) when app header is hidden, render safe-area spacer */}
+              {hideAppHeader && !isChat && (
+                <div className="block sm:hidden shrink-0 w-full pt-[env(safe-area-inset-top,0px)] bg-transparent select-none pointer-events-none" />
+              )}
 
               {/* On desktop browser frame (>= 640px), render simulated iPhone Dynamic Island & status bar */}
               <div className="hidden sm:flex shrink-0 w-full h-11 sm:h-12 px-4 sm:px-6 pt-2 sm:pt-3 items-center justify-between text-white text-[13px] font-semibold tracking-tight z-40 bg-gradient-to-b from-[#11061c] to-transparent select-none">
@@ -180,19 +182,45 @@ export function IPhoneMockupFrame({
           {customHeader ? (
             customHeader
           ) : !hideAppHeader && !isChat && !isStoryActive ? (
-            <div className="shrink-0 px-3.5 sm:px-4 py-2 flex items-center justify-between border-b border-rose-500/15 bg-white/[0.03] backdrop-blur-md z-30">
+            <header
+              className="shrink-0 sticky top-0 z-50 w-full px-3.5 sm:px-4 pt-[env(safe-area-inset-top,12px)] sm:pt-2.5 pb-2.5 flex items-center justify-between border-b border-rose-500/15 bg-[#140518]/90 text-white shadow-md relative"
+              style={{
+                WebkitBackdropFilter: 'blur(12px)',
+                backdropFilter: 'blur(12px)',
+                WebkitFontSmoothing: 'antialiased',
+                MozOsxFontSmoothing: 'grayscale',
+                transform: 'translateZ(0)'
+              }}
+            >
               {/* Left: Couple Brand & Status */}
-              <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-rose-600 to-pink-500 flex items-center justify-center shadow-[0_0_10px_rgba(244,63,94,0.4)]">
+              <div className="flex items-center gap-2" style={{ transform: 'translateZ(0)' }}>
+                <div
+                  className="w-7 h-7 rounded-lg bg-gradient-to-tr from-rose-600 to-pink-500 flex items-center justify-center border border-white/20 shadow-sm shrink-0"
+                  style={{ transform: 'translateZ(0)' }}
+                >
                   <Heart className="w-3.5 h-3.5 text-white fill-white" />
                 </div>
-                <div>
-                  <span className="text-xs font-bold text-white block leading-none">
+                <div style={{ transform: 'translateZ(0)' }}>
+                  <span
+                    className="text-xs font-bold text-white block leading-none font-sans"
+                    style={{
+                      WebkitFontSmoothing: 'antialiased',
+                      MozOsxFontSmoothing: 'grayscale',
+                      transform: 'translateZ(0)'
+                    }}
+                  >
                     {couple?.nickname || "Eren & Mikasa"}
                   </span>
-                  <div className="flex items-center gap-1 mt-0.5">
+                  <div className="flex items-center gap-1 mt-0.5" style={{ transform: 'translateZ(0)' }}>
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    <span className="text-[10px] text-rose-300/80 font-medium leading-none">
+                    <span
+                      className="text-[10px] text-rose-300/90 font-medium leading-none"
+                      style={{
+                        WebkitFontSmoothing: 'antialiased',
+                        MozOsxFontSmoothing: 'grayscale',
+                        transform: 'translateZ(0)'
+                      }}
+                    >
                       Private Space
                     </span>
                   </div>
@@ -200,7 +228,7 @@ export function IPhoneMockupFrame({
               </div>
 
               {/* Center / Right: Partner Mood Pill, Theme Toggle, & Mobile Drawer Trigger */}
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-1.5 shrink-0" style={{ transform: 'translateZ(0)' }}>
                 {/* Status Indicator Pill */}
                 {onOpenMoodModal && (
                   <button
@@ -208,6 +236,11 @@ export function IPhoneMockupFrame({
                     onClick={onOpenMoodModal}
                     className="liquid-pill px-2.5 py-1 text-[11px] text-rose-200 border-rose-400/30 hover:border-rose-400/50 transition-colors cursor-pointer active:scale-95 flex items-center gap-1"
                     title="Click to update status"
+                    style={{
+                      WebkitFontSmoothing: 'antialiased',
+                      MozOsxFontSmoothing: 'grayscale',
+                      transform: 'translateZ(0)'
+                    }}
                   >
                     <span>{myMood?.emoji || partnerMood?.emoji || '❤️'}</span>
                     <span className="truncate max-w-[75px]">{myMood?.mood || partnerMood?.mood || 'Loved'}</span>
@@ -220,6 +253,7 @@ export function IPhoneMockupFrame({
                   onClick={toggleTheme}
                   className="p-1.5 rounded-lg text-rose-200/80 hover:text-white hover:bg-white/10 active:scale-90 transition-all cursor-pointer"
                   aria-label="Toggle theme"
+                  style={{ transform: 'translateZ(0)' }}
                 >
                   {isDark ? <Sun className="w-3.5 h-3.5 text-amber-300" /> : <Moon className="w-3.5 h-3.5 text-rose-400" />}
                 </button>
@@ -232,12 +266,13 @@ export function IPhoneMockupFrame({
                     className="p-1.5 rounded-lg text-rose-200 hover:text-white hover:bg-white/10 active:scale-90 transition-all cursor-pointer"
                     aria-label="Open Space Menu Drawer"
                     title="Menu"
+                    style={{ transform: 'translateZ(0)' }}
                   >
                     <Menu className="w-4 h-4 text-white" />
                   </button>
                 )}
               </div>
-            </div>
+            </header>
           ) : null}
 
           {/* Independently Scrollable Screen Viewport */}
@@ -245,10 +280,10 @@ export function IPhoneMockupFrame({
             id="main-content-scroll"
             className={
               isChat
-                ? 'flex-1 min-h-0 h-full w-full max-w-full overflow-hidden overflow-x-hidden flex flex-col p-0 pb-0 box-border chat-container focus:outline-none'
-                : 'flex-1 overflow-y-auto overflow-x-hidden px-3.5 py-4 pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))] sm:pb-28 ios-scroll pulsepath-iphone-frame focus:outline-none'
+                ? 'flex-1 min-h-0 h-full w-full max-w-full overflow-hidden flex flex-col p-0 pb-0 box-border chat-container focus:outline-none'
+                : 'flex-1 overflow-y-auto overflow-x-hidden px-3.5 py-4 pb-[calc(90px+env(safe-area-inset-bottom,20px))] sm:pb-28 ios-scroll pulsepath-iphone-frame focus:outline-none'
             }
-            style={isChat ? { flex: '1 1 0%', height: '100%', minHeight: 0, width: '100%', maxWidth: '100%', boxSizing: 'border-box', overflowX: 'hidden' } : {}}
+            style={isChat ? { flex: '1 1 0%', height: '100%', minHeight: 0, width: '100%', maxWidth: '100%', boxSizing: 'border-box', overflow: 'hidden' } : {}}
           >
             {children}
           </main>
@@ -311,7 +346,7 @@ export function IPhoneMockupFrame({
               FLOATING PILL CAPSULE DOCK (iOS Floating Navigation Bar & Home Indicator)
               ========================================================================= */}
           {isStoryActive ? null : !hideBottomNav && !isChat ? (
-            <div className="absolute bottom-2 sm:bottom-3 left-0 right-0 z-30 flex flex-col items-center pointer-events-none select-none px-3 pb-[env(safe-area-inset-bottom,0px)]">
+            <div className="absolute bottom-0 left-0 right-0 z-30 flex flex-col items-center pointer-events-none select-none px-3 pb-[max(10px,env(safe-area-inset-bottom,12px))] sm:pb-3 pt-6 bg-gradient-to-t from-[#140518] via-[#140518]/90 to-transparent">
               <BottomNav
                 onOpenQuickAction={onOpenQuickAction}
                 onOpenMoreMenu={onOpenMoreMenu}
@@ -320,10 +355,15 @@ export function IPhoneMockupFrame({
               {/* Sleek iOS Home Indicator Bar - only on desktop mockup frame */}
               <div className="hidden sm:block w-28 h-1 bg-white/40 rounded-full mt-2 pointer-events-none shadow-sm" />
             </div>
+          ) : isChat ? (
+            /* Dedicated Bottom Bar for Chat screen on desktop mockup frame only */
+            <div className="hidden sm:flex w-full justify-center bg-[#140822] shrink-0 z-30 select-none pb-1.5 pt-0.5">
+              <div className="w-32 h-1 bg-white/35 rounded-full pointer-events-none shadow-sm" />
+            </div>
           ) : (
-            /* Dedicated Bottom Bar for Chat screen or Auth views with iOS Home Indicator */
-            <div className="w-full flex justify-center bg-[#140822] shrink-0 z-30 select-none pb-[env(safe-area-inset-bottom,0px)]">
-              <div className="hidden sm:block w-32 h-1 bg-white/35 rounded-full my-1.5 pointer-events-none shadow-sm" />
+            /* Dedicated Bottom Bar for Auth views with iOS Home Indicator on desktop */
+            <div className="hidden sm:flex w-full justify-center bg-[#140822] shrink-0 z-30 select-none pb-1.5">
+              <div className="w-32 h-1 bg-white/35 rounded-full my-1.5 pointer-events-none shadow-sm" />
             </div>
           )}
 

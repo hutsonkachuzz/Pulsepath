@@ -7,7 +7,16 @@ export function BottomNav({ onOpenQuickAction, onOpenMoreMenu, isQuickActionOpen
   return (
     <div className="w-full max-w-[380px] pointer-events-auto select-none">
       {/* iOS Floating Capsule Pill Dock */}
-      <div className="relative px-3 py-1.5 rounded-full bg-[#18072b]/88 backdrop-blur-2xl border border-rose-400/35 shadow-[0_14px_40px_rgba(0,0,0,0.85),0_0_24px_rgba(244,63,94,0.22),inset_0_1px_1px_rgba(255,255,255,0.25)] flex items-center justify-between transition-all will-change-[transform,opacity]">
+      <div
+        className="relative px-3 py-1.5 rounded-full bg-[#18072b]/90 border border-rose-400/35 shadow-[0_14px_40px_rgba(0,0,0,0.85),0_0_24px_rgba(244,63,94,0.22),inset_0_1px_1px_rgba(255,255,255,0.25)] flex items-center justify-between transition-all"
+        style={{
+          WebkitBackdropFilter: 'blur(16px)',
+          backdropFilter: 'blur(16px)',
+          WebkitFontSmoothing: 'antialiased',
+          MozOsxFontSmoothing: 'grayscale',
+          transform: 'translateZ(0)'
+        }}
+      >
         {/* Top ambient glass specular sheen */}
         <div className="absolute top-0 left-6 right-6 h-[1.5px] bg-gradient-to-r from-transparent via-rose-300/40 to-transparent pointer-events-none" />
 

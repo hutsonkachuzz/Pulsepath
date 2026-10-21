@@ -818,15 +818,15 @@ export function ChatPage() {
       animate={{ opacity: 1, scale: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.96, y: -12 }}
       transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
-      className={`w-full max-w-full h-full flex-1 flex flex-col min-h-0 overflow-hidden overflow-x-hidden relative isolate select-none box-border chat-container ${themeStyles.container} bg-gradient-to-b from-[#13071f] via-[#10061a] to-[#0c0414] text-white font-sans`}
+      className={`w-full max-w-full h-[100dvh] flex flex-col overflow-hidden relative isolate select-none box-border chat-container ${themeStyles.container} bg-gradient-to-b from-[#13071f] via-[#10061a] to-[#0c0414] text-white font-sans`}
       style={{
+        height: '100dvh',
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'hidden',
         width: '100%',
         maxWidth: '100%',
-        height: '100%',
-        flex: '1 1 0%',
-        minHeight: 0,
-        boxSizing: 'border-box',
-        overflowX: 'hidden'
+        boxSizing: 'border-box'
       }}
     >
       {/* Dynamic Custom Chat Wallpaper Layer */}
@@ -882,15 +882,25 @@ export function ChatPage() {
       {/* =========================================================================
           TOP FIXED CHAT HEADER (Native WhatsApp & Instagram Direct UX, ~54px)
           ========================================================================= */}
-      <header className="shrink-0 w-full max-w-full box-border h-13 sm:h-14 px-3 sm:px-4 pl-[max(0.75rem,env(safe-area-inset-left,0px))] pr-[max(0.75rem,env(safe-area-inset-right,0px))] bg-[#140822]/90 backdrop-blur-2xl border-b border-white/[0.08] flex items-center justify-between z-30 shadow-md relative">
+      <header
+        className="shrink-0 sticky top-0 z-50 w-full max-w-full box-border px-3 sm:px-4 pl-[max(0.75rem,env(safe-area-inset-left,0px))] pr-[max(0.75rem,env(safe-area-inset-right,0px))] pt-[env(safe-area-inset-top,12px)] sm:pt-2.5 pb-2.5 bg-[#140822]/90 border-b border-white/[0.08] flex items-center justify-between shadow-md relative"
+        style={{
+          WebkitBackdropFilter: 'blur(12px)',
+          backdropFilter: 'blur(12px)',
+          WebkitFontSmoothing: 'antialiased',
+          MozOsxFontSmoothing: 'grayscale',
+          transform: 'translateZ(0)'
+        }}
+      >
         {/* Left: Back Arrow + Interactive Circular Profile Picture + Name & Subtitle */}
-        <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
+        <div className="flex items-center gap-2 sm:gap-2.5 min-w-0" style={{ transform: 'translateZ(0)' }}>
           <button
             type="button"
             onClick={() => navigate('/home')}
             aria-label="Back to Our Space"
             className="p-1 -ml-1 rounded-full text-purple-300 hover:text-white hover:bg-white/10 active:scale-95 transition-all shrink-0 cursor-pointer focus:outline-none"
             title="Back to Our Space"
+            style={{ transform: 'translateZ(0)' }}
           >
             <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
@@ -902,22 +912,31 @@ export function ChatPage() {
             className="flex items-center gap-2 sm:gap-2.5 min-w-0 text-left rounded-2xl px-1.5 py-1 -my-1 hover:bg-white/[0.08] active:scale-[0.98] transition-all cursor-pointer focus:outline-none group/contact"
             title={`View & edit ${partnerName || 'Mikasa'}'s profile & info`}
             aria-label={`View & edit ${partnerName || 'Mikasa'}'s profile & info`}
+            style={{ transform: 'translateZ(0)' }}
           >
             {/* Clean Circular Profile Picture with Pulsing Online Status Dot */}
-            <div className="relative shrink-0">
+            <div className="relative shrink-0" style={{ transform: 'translateZ(0)' }}>
               <img
                 src={partnerAvatar || '/assets/mikasa_avatar.jpg'}
                 alt="Mikasa 🌸"
                 className="w-9 h-9 sm:w-10 sm:h-10 rounded-full object-cover border border-purple-400/40 shadow-sm group-hover/contact:border-purple-300 group-hover/contact:scale-105 transition-all"
+                style={{ transform: 'translateZ(0)' }}
               />
               {/* Live Green Online Dot */}
               <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400 border border-[#140822] shadow-[0_0_6px_#34d399]" />
             </div>
 
             {/* Contact Name & Subtitle */}
-            <div className="min-w-0 flex flex-col justify-center">
+            <div className="min-w-0 flex flex-col justify-center" style={{ transform: 'translateZ(0)' }}>
               <div className="flex items-center gap-1.5">
-                <h2 className="text-[14px] sm:text-[15px] font-semibold tracking-tight text-white leading-tight font-sans truncate group-hover/contact:text-purple-200 transition-colors">
+                <h2
+                  className="text-[14px] sm:text-[15px] font-semibold tracking-tight text-white leading-tight font-sans truncate group-hover/contact:text-purple-200 transition-colors"
+                  style={{
+                    WebkitFontSmoothing: 'antialiased',
+                    MozOsxFontSmoothing: 'grayscale',
+                    transform: 'translateZ(0)'
+                  }}
+                >
                   {partnerName ? (partnerName.includes('🌸') ? partnerName : `${partnerName} 🌸`) : 'Mikasa 🌸'}
                 </h2>
                 <PulsePathLogo
@@ -928,7 +947,14 @@ export function ChatPage() {
                   className="shrink-0 opacity-80"
                 />
               </div>
-              <div className="text-[11px] font-medium text-emerald-400/90 leading-none flex items-center gap-1 mt-0.5">
+              <div
+                className="text-[11px] font-medium text-emerald-400/90 leading-none flex items-center gap-1 mt-0.5"
+                style={{
+                  WebkitFontSmoothing: 'antialiased',
+                  MozOsxFontSmoothing: 'grayscale',
+                  transform: 'translateZ(0)'
+                }}
+              >
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                 <span>Active now</span>
                 {isMuted && (
@@ -1626,12 +1652,18 @@ export function ChatPage() {
           FIXED BOTTOM MESSAGE COMPOSER (Liquid Capsule UX)
           ========================================================================= */}
       <footer
-        className="relative shrink-0 w-full max-w-full box-border overflow-x-hidden z-40 bg-[#140822]/95 backdrop-blur-2xl border-t border-white/[0.08] px-2.5 py-2 pb-[max(0.75rem,calc(env(safe-area-inset-bottom,0px)+0.5rem))] pl-[max(0.625rem,env(safe-area-inset-left,0px))] pr-[max(0.625rem,env(safe-area-inset-right,0px))]"
+        className="relative shrink-0 w-full max-w-full box-border overflow-x-hidden z-40 bg-[#140822]/95 border-t border-white/[0.08] px-2.5 pt-2 pl-[max(0.625rem,env(safe-area-inset-left,0px))] pr-[max(0.625rem,env(safe-area-inset-right,0px))]"
         style={{
           width: '100%',
           maxWidth: '100%',
           boxSizing: 'border-box',
-          overflowX: 'hidden'
+          overflowX: 'hidden',
+          paddingBottom: 'max(10px, env(safe-area-inset-bottom, 0px))',
+          WebkitBackdropFilter: 'blur(12px)',
+          backdropFilter: 'blur(12px)',
+          WebkitFontSmoothing: 'antialiased',
+          MozOsxFontSmoothing: 'grayscale',
+          transform: 'translateZ(0)'
         }}
       >
         {/* Replying Banner */}
