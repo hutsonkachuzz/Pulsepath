@@ -44,7 +44,7 @@ export function WelcomePage() {
   };
 
   return (
-    <div className="relative h-full min-h-full w-full flex flex-col justify-between items-center overflow-y-auto overflow-x-hidden text-white select-none py-3 px-3">
+    <div className="main-wrapper app-container relative h-full min-h-full w-full flex flex-col justify-between items-center overflow-y-auto overflow-x-hidden text-white select-none py-3 px-3">
       {/* 3D Romantic Floating Particles Canvas Background */}
       <RomanticCanvas
         showCentralHeart={false}
@@ -193,7 +193,7 @@ export function WelcomePage() {
               <button
                 type="button"
                 onClick={() => setIsModalOpen(true)}
-                className="relative w-full min-h-[46px] px-4 py-3 rounded-2xl bg-gradient-to-r from-[#200827] via-[#2d0a36] to-[#1e0725] border border-rose-400/40 text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.25)] active:scale-[0.98] transition-all duration-200 cursor-pointer focus:outline-none touch-manipulation"
+                className="btn-primary neon-box relative w-full min-h-[46px] px-4 py-3 rounded-2xl bg-gradient-to-r from-[#200827] via-[#2d0a36] to-[#1e0725] border border-rose-400/40 text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.25)] active:scale-[0.98] transition-all duration-200 cursor-pointer focus:outline-none touch-manipulation"
               >
                 <KeyRound className="w-4 h-4 text-rose-400 shrink-0" />
                 <span className="tracking-wide">

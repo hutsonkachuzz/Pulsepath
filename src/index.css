@@ -766,31 +766,69 @@ a,
    STRICT MOBILE-FIRST PWA VIEWPORT, BORDER-BOX & SAFE AREA UTILITIES
    ========================================================= */
 
-/* 1. Global Border Box sizing across all HTML elements */
-*, *::before, *::after {
+/* 1. Global Border Box sizing across all HTML elements & mobile viewport stability */
+html {
+  width: 100%;
+  height: 100%;
+  min-height: 100dvh;
+  min-height: -webkit-fill-available;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
   box-sizing: border-box;
 }
 
-html, body {
+body {
+  width: 100%;
+  min-height: 100dvh;
+  min-height: -webkit-fill-available;
   margin: 0;
   padding: 0;
-  width: 100%;
-  height: 100%;
-  min-height: 100dvh;
   overflow-x: hidden;
-  background-color: #120914;
+  background-color: #0b0614; /* Match dark theme background */
+  font-family: inherit;
+  box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
 #root {
+  width: 100%;
+  min-height: 100dvh;
+  min-height: -webkit-fill-available;
   margin: 0;
   padding: 0;
-  width: 100%;
-  height: 100%;
-  min-height: 100dvh;
   overflow-x: hidden;
-  background-color: #120914;
+  box-sizing: border-box;
+  background-color: #0b0614;
+}
+
+/* App container with safe area handling for notches and bottom indicators */
+.app-container, .main-wrapper {
+  min-height: 100dvh;
+  min-height: -webkit-fill-available;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* Cross-browser support for neon glows, shadows, and glassmorphism */
+.neon-box, .card, .btn-primary {
+  -webkit-box-shadow: var(--neon-shadow, 0 0 20px rgba(255, 0, 128, 0.3));
+  box-shadow: var(--neon-shadow, 0 0 20px rgba(255, 0, 128, 0.3));
+}
+
+.glass-panel {
+  background: rgba(25, 15, 35, 0.7);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 /* 2. Safe Area Inset Helpers for iOS (Notch, Dynamic Island, Home Bar) & Android */

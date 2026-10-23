@@ -1831,7 +1831,7 @@ export function ChatPage() {
           FIXED BOTTOM MESSAGE COMPOSER (Liquid Capsule UX)
           ========================================================================= */}
       <footer
-        className="ios-chat-footer shrink-0 w-full max-w-full box-border overflow-x-hidden z-40 bg-[#160b1a]/98 border-t border-white/[0.08] px-2 sm:px-2.5 pl-[max(0.5rem,env(safe-area-inset-left,0px))] pr-[max(0.5rem,env(safe-area-inset-right,0px))]"
+        className={`ios-chat-footer chat-input-bar ${isKeyboardOpen ? 'keyboard-open' : ''} shrink-0 w-full max-w-full box-border overflow-x-hidden z-40 bg-[#160b1a]/98 border-t border-white/[0.08] px-2 sm:px-2.5 pl-[max(0.5rem,env(safe-area-inset-left,0px))] pr-[max(0.5rem,env(safe-area-inset-right,0px))]`}
         style={{
           width: '100%',
           maxWidth: '100%',

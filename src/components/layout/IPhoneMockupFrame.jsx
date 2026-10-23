@@ -266,7 +266,7 @@ export function IPhoneMockupFrame({
               ========================================================================= */}
           {isStoryActive ? null : !hideBottomNav && !isChat ? (
             <div
-              className="ios-bottom-nav-dock absolute left-0 right-0 z-[50] flex flex-col items-center pointer-events-none select-none px-3"
+              className="ios-bottom-nav-dock bottom-nav fixed-footer absolute left-0 right-0 z-[50] flex flex-col items-center pointer-events-none select-none px-3"
               style={{
                 bottom: 'max(14px, calc(env(safe-area-inset-bottom, 0px) + 6px))',
                 marginBottom: 0,

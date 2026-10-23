@@ -22,7 +22,7 @@ export function RomanticButton({
   }[size] || "px-4 py-2.5 text-sm gap-2";
 
   const variantClasses = {
-    primary: "bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 text-white shadow-liquid-glow hover:shadow-glow-lg hover:from-rose-400 hover:to-rose-500 border border-white/25 overflow-hidden",
+    primary: "btn-primary neon-box bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 text-white shadow-liquid-glow hover:shadow-glow-lg hover:from-rose-400 hover:to-rose-500 border border-white/25 overflow-hidden",
     secondary: "liquid-glass text-white hover:border-rose-400/50 border border-white/15 backdrop-blur-md",
     liquid: "liquid-glass text-rose-100 hover:text-white border border-rose-400/30 hover:border-rose-400/60 shadow-liquid hover:shadow-liquid-hover backdrop-blur-lg",
     ghost: "bg-transparent text-rose-300 hover:text-white hover:bg-white/[0.06] border border-transparent",

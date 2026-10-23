@@ -148,7 +148,7 @@ export function SharedPostCard({ post, onLikeToggle }) {
   };
 
   return (
-    <article className="w-full rounded-3xl bg-[#14081c]/85 backdrop-blur-xl border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.45)] overflow-hidden transition-all duration-300 hover:border-rose-500/25">
+    <article className="card glass-panel w-full rounded-3xl bg-[#14081c]/85 backdrop-blur-xl border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.45)] overflow-hidden transition-all duration-300 hover:border-rose-500/25">
       {/* 1. Post Header */}
       <div className="flex items-center justify-between p-3 sm:p-3.5">
         <div className="flex items-center gap-2.5">

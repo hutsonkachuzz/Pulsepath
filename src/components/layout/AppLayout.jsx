@@ -218,7 +218,7 @@ export function AppLayout() {
 
   return (
     <div
-      className="w-full flex items-center justify-center overflow-hidden bg-romantic-dark text-white relative"
+      className="app-container main-wrapper w-full flex items-center justify-center overflow-hidden bg-romantic-dark text-white relative"
       style={{ minHeight: 'var(--app-height, 100dvh)', height: 'var(--app-height, 100dvh)' }}
     >
       {/* 4-Corner Crystal Subtle Entry Glow */}

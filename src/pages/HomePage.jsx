@@ -367,7 +367,7 @@ export function HomePage() {
           onClick={() => setIsCreateModalOpen(true)}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className="w-full min-h-[46px] py-3 px-4 rounded-2xl bg-gradient-to-r from-rose-500/20 via-pink-500/25 to-purple-500/20 hover:from-rose-500/30 hover:via-pink-500/35 hover:to-purple-500/30 border border-rose-400/40 hover:border-rose-400/60 shadow-[0_4px_24px_rgba(255,42,122,0.25)] hover:shadow-[0_4px_30px_rgba(255,42,122,0.4)] backdrop-blur-xl flex items-center justify-center gap-2 text-white font-bold text-xs sm:text-sm tracking-wide cursor-pointer transition-all duration-300 group"
+          className="btn-primary neon-box w-full min-h-[46px] py-3 px-4 rounded-2xl bg-gradient-to-r from-rose-500/20 via-pink-500/25 to-purple-500/20 hover:from-rose-500/30 hover:via-pink-500/35 hover:to-purple-500/30 border border-rose-400/40 hover:border-rose-400/60 shadow-[0_4px_24px_rgba(255,42,122,0.25)] hover:shadow-[0_4px_30px_rgba(255,42,122,0.4)] backdrop-blur-xl flex items-center justify-center gap-2 text-white font-bold text-xs sm:text-sm tracking-wide cursor-pointer transition-all duration-300 group"
         >
           <div className="w-5 h-5 rounded-full bg-rose-500 flex items-center justify-center shadow-sm group-hover:rotate-90 transition-transform">
             <Plus className="w-3.5 h-3.5 text-white" />
