@@ -134,18 +134,20 @@ export function CoupleProvider({ children }) {
     return calculateJourneyStats(startDate);
   }, [startDate]);
 
-  // Partner identification & editable Contact Info
-  const isUserOne = (couple?.user_one_id && String(couple.user_one_id) === String(currentUserId)) ||
-                    (couple?.userOneId && String(couple.userOneId) === String(currentUserId)) ||
-                    (currentUserId === 'user_eren_101' || currentUserId === 'demo_user_eren');
-  const partnerId = isUserOne 
-    ? (couple?.user_two_id || couple?.userTwoId) 
-    : (couple?.user_one_id || couple?.userOneId);
+  // WhatsApp-Style Opposite Partner identification & resolution:
+  // If active user is Eren -> Partner is strictly Mikasa (with Mikasa's DP)
+  // If active user is Mikasa -> Partner is strictly Eren (with Eren's DP)
+  const currentUserName = currentUser?.name || '';
+  const isCurrentEren = currentUserName.toLowerCase().includes('eren') ||
+                        currentUserId === 'user_eren_101' ||
+                        currentUserId === 'demo_user_eren';
 
-  // Editable Partner Contact Info (Name, Phone, Bio, Avatar) with persistence
+  const partnerId = isCurrentEren ? 'user_mikasa_202' : 'user_eren_101';
+
+  // Editable Partner Contact Info (Name, Phone, Bio, Avatar) isolated per partner ID
   const [customContact, setCustomContact] = useState(() => {
     try {
-      const saved = localStorage.getItem('pulsepath_contact_profile');
+      const saved = localStorage.getItem('pulsepath_contact_profile_v2');
       return saved ? JSON.parse(saved) : {};
     } catch {
       return {};
@@ -154,30 +156,31 @@ export function CoupleProvider({ children }) {
 
   const updateContactInfo = useCallback((updates) => {
     setCustomContact((prev) => {
-      const next = { ...prev, ...updates };
-      localStorage.setItem('pulsepath_contact_profile', JSON.stringify(next));
+      const targetPartnerId = isCurrentEren ? 'user_mikasa_202' : 'user_eren_101';
+      const next = {
+        ...prev,
+        [targetPartnerId]: { ...(prev[targetPartnerId] || {}), ...updates }
+      };
+      localStorage.setItem('pulsepath_contact_profile_v2', JSON.stringify(next));
       return next;
     });
-  }, []);
+  }, [isCurrentEren]);
 
-  const defaultPartnerName = isUserOne 
-    ? (couple?.user_two_name || couple?.userTwoName || 'Mikasa') 
-    : (couple?.user_one_name || couple?.userOneName || 'Eren');
+  const defaultPartnerName = isCurrentEren ? 'Mikasa' : 'Eren';
+  const partnerProfile = customContact[partnerId] || {};
 
-  const partnerName = customContact.name || defaultPartnerName;
+  // Strictly enforce opposite partner name (never active user's own name)
+  const partnerName = (partnerProfile.name && partnerProfile.name.toLowerCase() !== currentUserName.toLowerCase())
+    ? partnerProfile.name
+    : defaultPartnerName;
 
-  const defaultPartnerAvatar = (partnerName.includes('Mikasa') || partnerName.includes('Mia'))
+  const defaultPartnerAvatar = isCurrentEren
     ? '/assets/mikasa_avatar.jpg'
-    : ((partnerName.includes('Eren') || partnerName.includes('Leo'))
-        ? 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=300&q=80'
-        : '/assets/mikasa_avatar.jpg');
+    : 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=300&q=80';
 
-  const partnerAvatar = customContact.avatar !== undefined && customContact.avatar !== null && customContact.avatar !== ''
-    ? customContact.avatar
-    : defaultPartnerAvatar;
-
-  const partnerPhone = customContact.phone || '+1 (555) 782-9012';
-  const partnerBio = customContact.bio || 'Forever by your side. Loving you more every single day ❤️';
+  const partnerAvatar = partnerProfile.avatar || defaultPartnerAvatar;
+  const partnerPhone = partnerProfile.phone || (isCurrentEren ? '+1 (555) 782-9012' : '+1 (555) 234-5678');
+  const partnerBio = partnerProfile.bio || (isCurrentEren ? 'Forever by your side. Loving you more every single day ❤️' : 'I will wrap that scarf around you again and again, forever.');
 
   const myMood = useMemo(() => {
     if (currentUserId && moods[currentUserId]) return moods[currentUserId];

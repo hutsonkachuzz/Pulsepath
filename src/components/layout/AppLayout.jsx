@@ -249,13 +249,15 @@ export function AppLayout() {
                 onClose={() => setIsMoreMenuOpen(false)}
                 title="Our Space Menu ✨"
                 subtitle="Explore every room in your shared world"
-                scoped={true}
+                scoped={false}
+                variant="center"
+                maxWidth="max-w-[360px]"
               >
-                <div className="space-y-3.5 py-1 text-left">
+                <div className="space-y-2 py-0.5 text-left">
                   {/* User Profile Summary Card */}
-                  <div className="p-3 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-between">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-rose-500 to-pink-500 flex items-center justify-center text-xs font-bold text-white shadow-md">
+                  <div className="p-2.5 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-rose-500 to-pink-500 flex items-center justify-center text-xs font-bold text-white shadow-md">
                         {currentUser?.name ? currentUser.name[0].toUpperCase() : 'U'}
                       </div>
                       <div>
@@ -271,7 +273,7 @@ export function AppLayout() {
                     <button
                       type="button"
                       onClick={handleSwitchPartner}
-                      className="px-2.5 py-1 rounded-xl bg-white/10 hover:bg-white/15 active:scale-95 text-[10px] font-semibold text-rose-200 hover:text-white transition-all cursor-pointer flex items-center gap-1 border border-white/10"
+                      className="px-2 py-1 rounded-xl bg-white/10 hover:bg-white/15 active:scale-95 text-[10px] font-semibold text-rose-200 hover:text-white transition-all cursor-pointer flex items-center gap-1 border border-white/10"
                       title="Switch demo partner profile"
                     >
                       <Users className="w-3 h-3" />
@@ -280,7 +282,7 @@ export function AppLayout() {
                   </div>
 
                   {/* Space Navigation Grid */}
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-2 gap-1.5">
                     {/* Featured: Pulse Snaps & Streaks */}
                     <Link
                       to="/snaps"
@@ -309,9 +311,9 @@ export function AppLayout() {
                     <Link
                       to="/chat"
                       onClick={() => setIsMoreMenuOpen(false)}
-                      className="p-2.5 rounded-2xl liquid-glass liquid-glass-interactive flex items-center gap-2.5 hover:border-rose-400/50 group"
+                      className="p-2 rounded-xl liquid-glass liquid-glass-interactive flex items-center gap-2 hover:border-rose-400/50 group"
                     >
-                      <div className="w-8 h-8 rounded-xl bg-rose-500/20 border border-rose-500/30 flex items-center justify-center text-rose-400 group-hover:scale-105 transition-transform shrink-0">
+                      <div className="w-7 h-7 rounded-lg bg-rose-500/20 border border-rose-500/30 flex items-center justify-center text-rose-400 group-hover:scale-105 transition-transform shrink-0">
                         <MessageCircleHeart className="w-3.5 h-3.5 stroke-[2.2]" />
                       </div>
                       <div className="min-w-0">
@@ -323,9 +325,9 @@ export function AppLayout() {
                     <Link
                       to="/memories"
                       onClick={() => setIsMoreMenuOpen(false)}
-                      className="p-2.5 rounded-2xl liquid-glass liquid-glass-interactive flex items-center gap-2.5 hover:border-rose-400/50 group"
+                      className="p-2 rounded-xl liquid-glass liquid-glass-interactive flex items-center gap-2 hover:border-rose-400/50 group"
                     >
-                      <div className="w-8 h-8 rounded-xl bg-pink-500/20 border border-pink-500/30 flex items-center justify-center text-pink-400 group-hover:scale-105 transition-transform shrink-0">
+                      <div className="w-7 h-7 rounded-lg bg-pink-500/20 border border-pink-500/30 flex items-center justify-center text-pink-400 group-hover:scale-105 transition-transform shrink-0">
                         <Heart className="w-3.5 h-3.5 stroke-[2.2]" />
                       </div>
                       <div className="min-w-0">
@@ -337,9 +339,9 @@ export function AppLayout() {
                     <Link
                       to="/thoughts"
                       onClick={() => setIsMoreMenuOpen(false)}
-                      className="p-2.5 rounded-2xl liquid-glass liquid-glass-interactive flex items-center gap-2.5 hover:border-rose-400/50 group"
+                      className="p-2 rounded-xl liquid-glass liquid-glass-interactive flex items-center gap-2 hover:border-rose-400/50 group"
                     >
-                      <div className="w-8 h-8 rounded-xl bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400 group-hover:scale-105 transition-transform shrink-0">
+                      <div className="w-7 h-7 rounded-lg bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400 group-hover:scale-105 transition-transform shrink-0">
                         <Sparkles className="w-3.5 h-3.5 stroke-[2.2]" />
                       </div>
                       <div className="min-w-0">
@@ -351,9 +353,9 @@ export function AppLayout() {
                     <Link
                       to="/letters"
                       onClick={() => setIsMoreMenuOpen(false)}
-                      className="p-2.5 rounded-2xl liquid-glass liquid-glass-interactive flex items-center gap-2.5 hover:border-rose-400/50 group"
+                      className="p-2 rounded-xl liquid-glass liquid-glass-interactive flex items-center gap-2 hover:border-rose-400/50 group"
                     >
-                      <div className="w-8 h-8 rounded-xl bg-rose-600/20 border border-rose-600/30 flex items-center justify-center text-rose-400 group-hover:scale-105 transition-transform shrink-0">
+                      <div className="w-7 h-7 rounded-lg bg-rose-600/20 border border-rose-600/30 flex items-center justify-center text-rose-400 group-hover:scale-105 transition-transform shrink-0">
                         <Mail className="w-3.5 h-3.5 stroke-[2.2]" />
                       </div>
                       <div className="min-w-0">
@@ -365,9 +367,9 @@ export function AppLayout() {
                     <Link
                       to="/gallery"
                       onClick={() => setIsMoreMenuOpen(false)}
-                      className="p-2.5 rounded-2xl liquid-glass liquid-glass-interactive flex items-center gap-2.5 hover:border-rose-400/50 group"
+                      className="p-2 rounded-xl liquid-glass liquid-glass-interactive flex items-center gap-2 hover:border-rose-400/50 group"
                     >
-                      <div className="w-8 h-8 rounded-xl bg-violet-500/20 border border-violet-500/30 flex items-center justify-center text-violet-400 group-hover:scale-105 transition-transform shrink-0">
+                      <div className="w-7 h-7 rounded-lg bg-violet-500/20 border border-violet-500/30 flex items-center justify-center text-violet-400 group-hover:scale-105 transition-transform shrink-0">
                         <Image className="w-3.5 h-3.5 stroke-[2.2]" />
                       </div>
                       <div className="min-w-0">
@@ -379,9 +381,9 @@ export function AppLayout() {
                     <Link
                       to="/dates"
                       onClick={() => setIsMoreMenuOpen(false)}
-                      className="p-2.5 rounded-2xl liquid-glass liquid-glass-interactive flex items-center gap-2.5 hover:border-rose-400/50 group"
+                      className="p-2 rounded-xl liquid-glass liquid-glass-interactive flex items-center gap-2 hover:border-rose-400/50 group"
                     >
-                      <div className="w-8 h-8 rounded-xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400 group-hover:scale-105 transition-transform shrink-0">
+                      <div className="w-7 h-7 rounded-lg bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400 group-hover:scale-105 transition-transform shrink-0">
                         <CalendarHeart className="w-3.5 h-3.5 stroke-[2.2]" />
                       </div>
                       <div className="min-w-0">
@@ -393,9 +395,9 @@ export function AppLayout() {
                     <Link
                       to="/question"
                       onClick={() => setIsMoreMenuOpen(false)}
-                      className="p-2.5 rounded-2xl liquid-glass liquid-glass-interactive flex items-center gap-2.5 hover:border-rose-400/50 group"
+                      className="p-2 rounded-xl liquid-glass liquid-glass-interactive flex items-center gap-2 hover:border-rose-400/50 group"
                     >
-                      <div className="w-8 h-8 rounded-xl bg-pink-600/20 border border-pink-600/30 flex items-center justify-center text-pink-400 group-hover:scale-105 transition-transform shrink-0">
+                      <div className="w-7 h-7 rounded-lg bg-pink-600/20 border border-pink-600/30 flex items-center justify-center text-pink-400 group-hover:scale-105 transition-transform shrink-0">
                         <HelpCircle className="w-3.5 h-3.5 stroke-[2.2]" />
                       </div>
                       <div className="min-w-0">
@@ -407,9 +409,9 @@ export function AppLayout() {
                     <Link
                       to="/settings"
                       onClick={() => setIsMoreMenuOpen(false)}
-                      className="p-2.5 rounded-2xl liquid-glass liquid-glass-interactive flex items-center gap-2.5 hover:border-rose-400/50 group"
+                      className="p-2 rounded-xl liquid-glass liquid-glass-interactive flex items-center gap-2 hover:border-rose-400/50 group"
                     >
-                      <div className="w-8 h-8 rounded-xl bg-gray-500/20 border border-gray-500/30 flex items-center justify-center text-rose-300 group-hover:scale-105 transition-transform shrink-0">
+                      <div className="w-7 h-7 rounded-lg bg-gray-500/20 border border-gray-500/30 flex items-center justify-center text-rose-300 group-hover:scale-105 transition-transform shrink-0">
                         <Settings className="w-3.5 h-3.5 stroke-[2.2]" />
                       </div>
                       <div className="min-w-0">

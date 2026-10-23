@@ -115,14 +115,15 @@ export function IPhoneMockupFrame({
             customHeader
           ) : !hideAppHeader && !isChat && !isStoryActive ? (
             <header
-              className="top-header shrink-0 sticky top-0 z-[1000] w-full px-3.5 sm:px-4 flex items-center justify-between text-white shadow-md relative"
+              className="top-header shrink-0 sticky top-0 z-[1000] w-full px-3.5 sm:px-4 flex items-center justify-between text-white shadow-md relative bg-[#14071f]"
               style={{
                 paddingTop: 'calc(env(safe-area-inset-top, 47px) + 8px)',
-                paddingBottom: '12px'
+                paddingBottom: '10px',
+                background: '#14071f'
               }}
             >
               {/* Left: Couple Brand & Status */}
-              <div className="flex items-center gap-2 relative z-[2]" style={{ transform: 'translate3d(0,0,0)', opacity: 1 }}>
+              <div className="flex items-center gap-2 relative z-[2]">
                 <div
                   className="w-7 h-7 rounded-lg bg-gradient-to-tr from-rose-600 to-pink-500 flex items-center justify-center border border-white/20 shadow-sm shrink-0"
                 >
@@ -130,24 +131,14 @@ export function IPhoneMockupFrame({
                 </div>
                 <div>
                   <span
-                    className="text-xs font-bold text-white block leading-none font-sans"
-                    style={{
-                      WebkitFontSmoothing: 'antialiased',
-                      MozOsxFontSmoothing: 'grayscale',
-                      transform: 'translate3d(0,0,0)'
-                    }}
+                    className="text-[13px] font-bold text-white block leading-tight font-sans tracking-tight"
                   >
                     {couple?.nickname || "Eren & Mikasa"}
                   </span>
                   <div className="flex items-center gap-1 mt-0.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                     <span
-                      className="text-[10px] text-rose-300/90 font-medium leading-none"
-                      style={{
-                        WebkitFontSmoothing: 'antialiased',
-                        MozOsxFontSmoothing: 'grayscale',
-                        transform: 'translate3d(0,0,0)'
-                      }}
+                      className="text-[10px] text-rose-300 font-semibold leading-tight"
                     >
                       Private Space
                     </span>
@@ -156,7 +147,7 @@ export function IPhoneMockupFrame({
               </div>
 
               {/* Center / Right: Streak Badge, Partner Mood Pill, Theme Toggle, & Mobile Drawer Trigger */}
-              <div className="flex items-center gap-1.5 shrink-0 relative z-[2]" style={{ transform: 'translate3d(0,0,0)', opacity: 1 }}>
+              <div className="flex items-center gap-1.5 shrink-0 relative z-[2]">
                 {/* Glowing Streak Pill Badge */}
                 <StreakBadge size="sm" />
 
@@ -165,13 +156,8 @@ export function IPhoneMockupFrame({
                   <button
                     type="button"
                     onClick={onOpenMoodModal}
-                    className="liquid-pill px-2.5 py-1 text-[11px] text-rose-200 border-rose-400/30 hover:border-rose-400/50 transition-colors cursor-pointer active:scale-95 flex items-center gap-1"
+                    className="px-2.5 py-1 text-[11px] font-semibold text-rose-200 bg-[#210d33] border border-rose-400/40 rounded-full hover:border-rose-400/60 transition-colors cursor-pointer active:scale-95 flex items-center gap-1 shadow-sm"
                     title="Click to update status"
-                    style={{
-                      WebkitFontSmoothing: 'antialiased',
-                      MozOsxFontSmoothing: 'grayscale',
-                      transform: 'translate3d(0,0,0)'
-                    }}
                   >
                     <span>{myMood?.emoji || partnerMood?.emoji || '❤️'}</span>
                     <span className="truncate max-w-[70px]">{myMood?.mood || partnerMood?.mood || 'Loved'}</span>
@@ -182,7 +168,7 @@ export function IPhoneMockupFrame({
                 <button
                   type="button"
                   onClick={toggleTheme}
-                  className="p-1.5 rounded-lg text-rose-200/80 hover:text-white hover:bg-white/10 active:scale-90 transition-all cursor-pointer"
+                  className="p-1.5 rounded-lg text-rose-200/90 hover:text-white hover:bg-white/10 active:scale-90 transition-all cursor-pointer"
                   aria-label="Toggle theme"
                 >
                   {isDark ? <Sun className="w-3.5 h-3.5 text-amber-300" /> : <Moon className="w-3.5 h-3.5 text-rose-400" />}
@@ -280,10 +266,11 @@ export function IPhoneMockupFrame({
               ========================================================================= */}
           {isStoryActive ? null : !hideBottomNav && !isChat ? (
             <div
-              className="ios-bottom-nav-dock absolute left-0 right-0 z-[1000] flex flex-col items-center pointer-events-none select-none px-3"
+              className="ios-bottom-nav-dock absolute left-0 right-0 z-[50] flex flex-col items-center pointer-events-none select-none px-3"
               style={{
-                bottom: '8px',
-                marginBottom: 0
+                bottom: '4px',
+                marginBottom: 0,
+                paddingBottom: 0
               }}
             >
               <BottomNav

@@ -26,13 +26,10 @@ export function StreakBadge({ size = 'md', className = '', showLabel = false }) 
         openStreakHub();
       }}
       className={`
-        inline-flex items-center rounded-full font-bold select-none cursor-pointer transition-all duration-300
-        bg-[#1b0a2c]/90 border backdrop-blur-xl ${glowConfig.class} ${sizeStyles} ${className}
+        inline-flex items-center rounded-full font-bold select-none cursor-pointer transition-all duration-200
+        ${size === 'sm' ? 'bg-[#1e0a2e] border border-purple-400/40 text-purple-200 shadow-sm' : `bg-[#1b0a2c]/90 border backdrop-blur-xl ${glowConfig.class}`}
+        ${sizeStyles} ${className}
       `}
-      style={{
-        transform: 'translate3d(0, 0, 0)',
-        willChange: 'transform'
-      }}
       title={
         isExpiring
           ? `Streak expiring soon! ${windowInfo.hoursRemaining}h ${windowInfo.minutesRemaining}m remaining`

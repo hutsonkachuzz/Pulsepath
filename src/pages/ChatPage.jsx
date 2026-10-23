@@ -984,21 +984,21 @@ export function ChatPage() {
           TOP FIXED CHAT HEADER (Native WhatsApp & Instagram Direct UX, ~54px)
           ========================================================================= */}
       <header
-        className="top-header shrink-0 sticky top-0 z-[1000] w-full max-w-full box-border px-3 sm:px-4 pl-[max(0.75rem,env(safe-area-inset-left,0px))] pr-[max(0.75rem,env(safe-area-inset-right,0px))] flex items-center justify-between border-b border-white/[0.08] shadow-md relative"
+        className="top-header shrink-0 sticky top-0 z-[1000] w-full max-w-full box-border px-2.5 sm:px-4 pl-[max(0.625rem,env(safe-area-inset-left,0px))] pr-[max(0.625rem,env(safe-area-inset-right,0px))] flex items-center justify-between border-b border-white/[0.08] shadow-md relative bg-[#14071f]"
         style={{
           paddingTop: 'calc(env(safe-area-inset-top, 47px) + 8px)',
-          paddingBottom: '12px'
+          paddingBottom: '10px',
+          background: '#14071f'
         }}
       >
         {/* Left: Back Arrow + Interactive Circular Profile Picture + Name & Subtitle */}
-        <div className="flex items-center gap-2 sm:gap-2.5 min-w-0 relative z-[2]" style={{ transform: 'translate3d(0,0,0)', opacity: 1 }}>
+        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 relative z-[2]">
           <button
             type="button"
             onClick={() => navigate('/home')}
             aria-label="Back to Our Space"
-            className="p-1 -ml-1 rounded-full text-purple-300 hover:text-white hover:bg-white/10 active:scale-95 transition-all shrink-0 cursor-pointer focus:outline-none"
+            className="p-1 -ml-1 rounded-full text-purple-200 hover:text-white hover:bg-white/10 active:scale-95 transition-all shrink-0 cursor-pointer focus:outline-none"
             title="Back to Our Space"
-            style={{ transform: 'translateZ(0)' }}
           >
             <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
@@ -1007,52 +1007,33 @@ export function ChatPage() {
           <button
             type="button"
             onClick={() => setShowContactInfo(true)}
-            className="flex items-center gap-2 sm:gap-2.5 min-w-0 text-left rounded-2xl px-1.5 py-1 -my-1 hover:bg-white/[0.08] active:scale-[0.98] transition-all cursor-pointer focus:outline-none group/contact"
-            title={`View & edit ${partnerName || 'Mikasa'}'s profile & info`}
-            aria-label={`View & edit ${partnerName || 'Mikasa'}'s profile & info`}
-            style={{ transform: 'translateZ(0)' }}
+            className="flex items-center gap-2 sm:gap-2.5 shrink-0 text-left rounded-2xl px-1 py-1 -my-1 hover:bg-white/[0.08] active:scale-[0.98] transition-all cursor-pointer focus:outline-none group/contact"
+            title={`View & edit ${partnerName}'s profile & info`}
+            aria-label={`View & edit ${partnerName}'s profile & info`}
           >
             {/* Clean Circular Profile Picture with Pulsing Online Status Dot */}
-            <div className="relative shrink-0" style={{ transform: 'translateZ(0)' }}>
+            <div className="relative shrink-0">
               <img
-                src={partnerAvatar || '/assets/mikasa_avatar.jpg'}
-                alt="Mikasa 🌸"
+                src={partnerAvatar}
+                alt={partnerName}
                 className="w-9 h-9 sm:w-10 sm:h-10 rounded-full object-cover border border-purple-400/40 shadow-sm group-hover/contact:border-purple-300 group-hover/contact:scale-105 transition-all"
-                style={{ transform: 'translateZ(0)' }}
               />
               {/* Live Green Online Dot */}
               <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400 border border-[#140822] shadow-[0_0_6px_#34d399]" />
             </div>
 
             {/* Contact Name & Subtitle */}
-            <div className="min-w-0 flex flex-col justify-center" style={{ transform: 'translateZ(0)' }}>
+            <div className="shrink-0 flex flex-col justify-center">
               <div className="flex items-center gap-1.5">
                 <h2
-                  className="text-[14px] sm:text-[15px] font-semibold tracking-tight text-white leading-tight font-sans truncate group-hover/contact:text-purple-200 transition-colors"
-                  style={{
-                    WebkitFontSmoothing: 'antialiased',
-                    MozOsxFontSmoothing: 'grayscale',
-                    transform: 'translateZ(0)'
-                  }}
+                  className="text-[14.5px] sm:text-[15.5px] font-bold tracking-tight text-white leading-tight font-sans whitespace-nowrap shrink-0 group-hover/contact:text-purple-200 transition-colors"
                 >
-                  {partnerName ? (partnerName.includes('🌸') ? partnerName : `${partnerName} 🌸`) : 'Mikasa 🌸'}
+                  {partnerName}
                 </h2>
-                <PulsePathLogo
-                  size={16}
-                  variant="primary"
-                  withGlow={false}
-                  alt="PulsePath"
-                  className="shrink-0 opacity-80"
-                />
                 <StreakBadge size="sm" className="shrink-0" />
               </div>
               <div
                 className="text-[11px] font-medium text-emerald-400/90 leading-none flex items-center gap-1 mt-0.5"
-                style={{
-                  WebkitFontSmoothing: 'antialiased',
-                  MozOsxFontSmoothing: 'grayscale',
-                  transform: 'translateZ(0)'
-                }}
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                 <span>Active now</span>
@@ -1068,12 +1049,12 @@ export function ChatPage() {
         </div>
 
         {/* Right: Integrated Control Buttons (Voice call, Video call, Search, More 3-dot menu) */}
-        <div className="flex items-center gap-1 sm:gap-1.5 shrink-0 text-white/80 relative z-[2]" style={{ transform: 'translate3d(0,0,0)', opacity: 1 }}>
+        <div className="flex items-center gap-0.5 sm:gap-1 shrink-0 text-white/90 relative z-[2]">
           {/* Voice Call Button */}
           <button
             type="button"
             onClick={() => setActiveCall('voice')}
-            className="p-2 rounded-full text-white/80 hover:text-white hover:bg-white/10 active:scale-95 transition-all cursor-pointer focus:outline-none"
+            className="p-1.5 sm:p-2 rounded-full text-white/80 hover:text-white hover:bg-white/10 active:scale-95 transition-all cursor-pointer focus:outline-none"
             title="Voice Call"
             aria-label="Voice Call"
           >
@@ -1084,7 +1065,7 @@ export function ChatPage() {
           <button
             type="button"
             onClick={() => setActiveCall('video')}
-            className="p-2 rounded-full text-white/80 hover:text-white hover:bg-white/10 active:scale-95 transition-all cursor-pointer focus:outline-none"
+            className="p-1.5 sm:p-2 rounded-full text-white/80 hover:text-white hover:bg-white/10 active:scale-95 transition-all cursor-pointer focus:outline-none"
             title="Video Call"
             aria-label="Video Call"
           >
@@ -1095,7 +1076,7 @@ export function ChatPage() {
           <button
             type="button"
             onClick={() => setShowSearch(!showSearch)}
-            className={`p-2 rounded-full transition-all cursor-pointer focus:outline-none ${
+            className={`p-1.5 sm:p-2 rounded-full transition-all cursor-pointer focus:outline-none ${
               showSearch ? 'bg-white/20 text-white' : 'text-white/80 hover:text-white hover:bg-white/10'
             }`}
             title="Search in chat"
@@ -1360,32 +1341,33 @@ export function ChatPage() {
           ========================================================================= */}
       <main
         ref={chatScrollContainerRef}
-        className="flex-1 w-full max-w-full min-h-0 h-full overflow-y-auto overflow-x-hidden px-3 sm:px-4 py-3 sm:py-4 flex flex-col gap-2.5 sm:gap-3 z-10 box-border chat-scroll-area [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="flex-1 w-full max-w-full min-h-0 overflow-y-auto overflow-x-hidden px-3 sm:px-4 pt-2 pb-2 z-10 box-border chat-scroll-area [scrollbar-width:none] [&::-webkit-scrollbar]:hidden flex flex-col"
         style={{
           flex: '1 1 0%',
           minHeight: 0,
-          height: '100%',
           width: '100%',
           maxWidth: '100%',
           boxSizing: 'border-box',
           overflowY: 'auto',
           overflowX: 'hidden',
-          scrollbarWidth: 'none'
+          scrollbarWidth: 'none',
+          paddingBottom: '8px'
         }}
       >
-        {filteredMessages.length === 0 ? (
-          <div className="h-full flex flex-col items-center justify-center text-center p-6 select-none">
-            <div className="w-14 h-14 rounded-full bg-rose-500/10 border border-rose-500/20 flex items-center justify-center mb-3">
-              <Heart className="w-7 h-7 text-rose-400 animate-pulse" />
+        <div className="min-h-full flex flex-col justify-end gap-2.5 pb-1">
+          {filteredMessages.length === 0 ? (
+            <div className="h-full my-auto flex flex-col items-center justify-center text-center p-6 select-none">
+              <div className="w-14 h-14 rounded-full bg-rose-500/10 border border-rose-500/20 flex items-center justify-center mb-3">
+                <Heart className="w-7 h-7 text-rose-400 animate-pulse" />
+              </div>
+              <h3 className="text-sm sm:text-base font-semibold text-white font-sans">
+                {onlySavedMemories ? 'No starred memories found' : 'Your private conversation begins ❤️'}
+              </h3>
+              <p className="text-xs text-white/60 max-w-xs mt-1">
+                Send a quick message, share a photo, or record a voice note.
+              </p>
             </div>
-            <h3 className="text-sm sm:text-base font-semibold text-white font-sans">
-              {onlySavedMemories ? 'No starred memories found' : 'Your private conversation begins ❤️'}
-            </h3>
-            <p className="text-xs text-white/60 max-w-xs mt-1">
-              Send a quick message, share a photo, or record a voice note.
-            </p>
-          </div>
-        ) : (
+          ) : (
           filteredMessages.map((msg, idx) => {
             // Dynamically determine outgoing (sent by current user) vs incoming (sent by partner)
             const isOutgoing = isMessageOutgoing(msg);
@@ -1745,11 +1727,12 @@ export function ChatPage() {
               <span className="w-1.5 h-1.5 rounded-full bg-rose-400 animate-bounce [animation-delay:0.2s]" />
               <span className="w-1.5 h-1.5 rounded-full bg-rose-400 animate-bounce [animation-delay:0.4s]" />
             </div>
-            <span className="font-medium">{partnerName || 'Eren'} is typing...</span>
+            <span className="font-medium">{partnerName} is typing...</span>
           </div>
         )}
 
-        <div ref={messagesEndRef} />
+          <div ref={messagesEndRef} className="h-0 w-full shrink-0" />
+        </div>
       </main>
 
       {/* Backdrops for Miniature Liquid Popups (Strictly bounded inside Chat container) */}
@@ -1767,7 +1750,7 @@ export function ChatPage() {
           FIXED BOTTOM MESSAGE COMPOSER (Liquid Capsule UX)
           ========================================================================= */}
       <footer
-        className="ios-chat-footer shrink-0 w-full max-w-full box-border overflow-x-hidden z-40 bg-[#160b1a]/96 border-t border-white/[0.08] px-2.5 pt-2 pl-[max(0.625rem,env(safe-area-inset-left,0px))] pr-[max(0.625rem,env(safe-area-inset-right,0px))]"
+        className="ios-chat-footer shrink-0 w-full max-w-full box-border overflow-x-hidden z-40 bg-[#160b1a]/98 border-t border-white/[0.08] px-2.5 pt-2 pl-[max(0.625rem,env(safe-area-inset-left,0px))] pr-[max(0.625rem,env(safe-area-inset-right,0px))]"
         style={{
           width: '100%',
           maxWidth: '100%',
@@ -1775,8 +1758,8 @@ export function ChatPage() {
           overflowX: 'hidden',
           bottom: 0,
           marginBottom: 0,
-          paddingBottom: '8px',
-          background: 'rgba(22, 11, 26, 0.96)',
+          paddingBottom: '4px',
+          background: 'rgba(22, 11, 26, 0.98)',
           WebkitFontSmoothing: 'antialiased',
           MozOsxFontSmoothing: 'grayscale',
           transform: 'translate3d(0, 0, 0)'
