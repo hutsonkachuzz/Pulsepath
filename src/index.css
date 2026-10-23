@@ -978,11 +978,11 @@ header.ios-header > *,
   }
 
   /* 2. Mandatory Bottom Padding for Scrollable Containers on iPhone 15: Zero Overlap / Zero Clipping */
-  #main-content-scroll,
+  #main-content-scroll:not(.chat-container),
   .pulsepath-iphone-frame:not(.chat-container),
   .feed-container-ios,
   .main-scroll-container,
-  main:not(.chat-container) {
+  main:not(.chat-container):not(.chat-scroll-area) {
     padding-bottom: calc(75px + env(safe-area-inset-bottom, 12px)) !important;
   }
 
@@ -1001,7 +1001,7 @@ header.ios-header > *,
   /* Ensure the chat messages list leaves room for the chat footer on iPhone without dead space */
   .chat-messages-container,
   .chat-scroll-area {
-    padding-bottom: 8px !important;
+    padding-bottom: 6px !important;
   }
 
   /* 4. iPhone 15 Top Header Razor-Sharp Resolution & Zero Fog */

@@ -721,15 +721,28 @@ export function ChatPage() {
 
   // Mobile virtual keyboard & visualViewport height tracking (WhatsApp-style responsiveness)
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
+  const baselineViewportHeightRef = useRef(
+    typeof window !== 'undefined'
+      ? (window.visualViewport ? window.visualViewport.height : window.innerHeight)
+      : 800
+  );
 
   useEffect(() => {
     const handleViewport = () => {
       if (window.visualViewport) {
-        const isKb = window.visualViewport.height < window.innerHeight - 80;
+        const vvH = window.visualViewport.height;
+        const isInputFocused = document.activeElement === chatInputRef.current;
+        // Keep baseline height updated when keyboard is closed
+        if (!isInputFocused && vvH > baselineViewportHeightRef.current) {
+          baselineViewportHeightRef.current = vvH;
+        }
+        const isKb = isInputFocused || vvH < (baselineViewportHeightRef.current - 90);
         setIsKeyboardOpen(isKb);
-        // Lock window scroll so header remains pinned at the top
+
+        // Lock window scroll so header remains pinned at the top without jumping
         window.scrollTo(0, 0);
-        document.body.scrollTop = 0;
+        if (document.body) document.body.scrollTop = 0;
+        if (document.documentElement) document.documentElement.scrollTop = 0;
         scrollToBottom(false);
       }
     };
@@ -753,21 +766,29 @@ export function ChatPage() {
       setIsKeyboardOpen(true);
       setTimeout(() => {
         window.scrollTo(0, 0);
-        document.body.scrollTop = 0;
+        if (document.body) document.body.scrollTop = 0;
+        if (document.documentElement) document.documentElement.scrollTop = 0;
         scrollToBottom(false);
       }, 50);
       setTimeout(() => {
         window.scrollTo(0, 0);
+        if (document.body) document.body.scrollTop = 0;
+        if (document.documentElement) document.documentElement.scrollTop = 0;
         scrollToBottom(false);
       }, 250);
     };
 
     const onBlur = () => {
-      setIsKeyboardOpen(false);
       setTimeout(() => {
-        window.scrollTo(0, 0);
-        scrollToBottom(false);
-      }, 50);
+        const stillFocused = document.activeElement === input;
+        if (!stillFocused) {
+          setIsKeyboardOpen(false);
+          window.scrollTo(0, 0);
+          if (document.body) document.body.scrollTop = 0;
+          if (document.documentElement) document.documentElement.scrollTop = 0;
+          scrollToBottom(false);
+        }
+      }, 80);
     };
 
     input.addEventListener('focus', onFocus);
@@ -1046,8 +1067,8 @@ export function ChatPage() {
       <header
         className="top-header shrink-0 sticky top-0 z-[1000] w-full max-w-full box-border px-2.5 sm:px-4 pl-[max(0.625rem,env(safe-area-inset-left,0px))] pr-[max(0.625rem,env(safe-area-inset-right,0px))] flex items-center justify-between border-b border-white/[0.08] shadow-md relative bg-[#14071f]"
         style={{
-          paddingTop: 'max(10px, calc(env(safe-area-inset-top, 0px) + 6px))',
-          paddingBottom: '10px',
+          paddingTop: 'max(8px, calc(env(safe-area-inset-top, 0px) + 4px))',
+          paddingBottom: '8px',
           background: '#14071f'
         }}
       >
@@ -1401,7 +1422,7 @@ export function ChatPage() {
           ========================================================================= */}
       <main
         ref={chatScrollContainerRef}
-        className="flex-1 w-full max-w-full min-h-0 overflow-y-auto overflow-x-hidden px-3 sm:px-4 pt-2 pb-2 z-10 box-border chat-scroll-area [scrollbar-width:none] [&::-webkit-scrollbar]:hidden flex flex-col"
+        className="flex-1 w-full max-w-full min-h-0 overflow-y-auto overflow-x-hidden px-3 sm:px-4 pt-2 pb-1.5 z-10 box-border chat-scroll-area chat-container [scrollbar-width:none] [&::-webkit-scrollbar]:hidden flex flex-col"
         style={{
           flex: '1 1 0%',
           minHeight: 0,
@@ -1411,12 +1432,12 @@ export function ChatPage() {
           overflowY: 'auto',
           overflowX: 'hidden',
           scrollbarWidth: 'none',
-          paddingBottom: '8px'
+          paddingBottom: '6px'
         }}
       >
-        <div className="min-h-full flex flex-col justify-end gap-2.5 pb-1">
+        <div className="w-full flex flex-col gap-1 pb-1">
           {filteredMessages.length === 0 ? (
-            <div className="h-full my-auto flex flex-col items-center justify-center text-center p-6 select-none">
+            <div className="min-h-[50vh] my-auto flex flex-col items-center justify-center text-center p-6 select-none">
               <div className="w-14 h-14 rounded-full bg-rose-500/10 border border-rose-500/20 flex items-center justify-center mb-3">
                 <Heart className="w-7 h-7 text-rose-400 animate-pulse" />
               </div>
@@ -1482,8 +1503,8 @@ export function ChatPage() {
               <React.Fragment key={msg.id || idx}>
                 {/* Centered rounded date separator badges: "Oct 1", "Oct 2", "Oct 4", and "Yesterday" */}
                 {showDateDivider && (
-                  <div className="flex justify-center my-3 select-none shrink-0" style={{ flexShrink: 0 }}>
-                    <span className="px-4 py-1 rounded-full text-[11px] font-semibold tracking-wide text-purple-200/90 bg-[#1e1030]/90 backdrop-blur-md border border-purple-500/25 shadow-[0_2px_8px_rgba(0,0,0,0.5)] flex items-center gap-1.5">
+                  <div className="flex justify-center my-2 select-none shrink-0" style={{ flexShrink: 0 }}>
+                    <span className="px-3.5 py-0.5 rounded-full text-[10.5px] font-semibold tracking-wide text-purple-200/90 bg-[#1e1030]/90 backdrop-blur-md border border-purple-500/25 shadow-[0_2px_8px_rgba(0,0,0,0.5)] flex items-center gap-1.5">
                       <span>{dateDividerLabel}</span>
                     </span>
                   </div>
@@ -1491,7 +1512,7 @@ export function ChatPage() {
 
                 {/* Message Row: Left for Incoming, Right for Outgoing */}
                 <div
-                  className={`w-full max-w-full box-border overflow-x-hidden flex flex-col shrink-0 ${isOutgoing ? 'items-end' : 'items-start'} ${isPrevSameSender ? 'mt-1' : 'mt-2.5 sm:mt-3'} group relative`}
+                  className={`w-full max-w-full box-border overflow-x-hidden flex flex-col shrink-0 ${isOutgoing ? 'items-end' : 'items-start'} ${isPrevSameSender ? 'mt-0.5' : 'mt-1.5 sm:mt-2'} group relative`}
                   style={{ flexShrink: 0, minHeight: 'min-content', alignSelf: isOutgoing ? 'flex-end' : 'flex-start', width: '100%', maxWidth: '100%', boxSizing: 'border-box' }}
                 >
                   {/* Quoted Reply Card preview */}
@@ -1810,7 +1831,7 @@ export function ChatPage() {
           FIXED BOTTOM MESSAGE COMPOSER (Liquid Capsule UX)
           ========================================================================= */}
       <footer
-        className="ios-chat-footer shrink-0 w-full max-w-full box-border overflow-x-hidden z-40 bg-[#160b1a]/98 border-t border-white/[0.08] px-2.5 pt-2 pl-[max(0.625rem,env(safe-area-inset-left,0px))] pr-[max(0.625rem,env(safe-area-inset-right,0px))]"
+        className="ios-chat-footer shrink-0 w-full max-w-full box-border overflow-x-hidden z-40 bg-[#160b1a]/98 border-t border-white/[0.08] px-2 sm:px-2.5 pl-[max(0.5rem,env(safe-area-inset-left,0px))] pr-[max(0.5rem,env(safe-area-inset-right,0px))]"
         style={{
           width: '100%',
           maxWidth: '100%',
@@ -1818,6 +1839,7 @@ export function ChatPage() {
           overflowX: 'hidden',
           bottom: 0,
           marginBottom: 0,
+          paddingTop: isKeyboardOpen ? '5px' : '7px',
           paddingBottom: isKeyboardOpen ? '4px' : 'max(6px, calc(env(safe-area-inset-bottom, 0px) + 2px))',
           background: 'rgba(22, 11, 26, 0.98)',
           WebkitFontSmoothing: 'antialiased',
