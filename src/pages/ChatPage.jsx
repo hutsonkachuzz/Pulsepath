@@ -1422,7 +1422,7 @@ export function ChatPage() {
           ========================================================================= */}
       <main
         ref={chatScrollContainerRef}
-        className="flex-1 w-full max-w-full min-h-0 overflow-y-auto overflow-x-hidden px-3 sm:px-4 pt-2 pb-1.5 z-10 box-border chat-scroll-area chat-container [scrollbar-width:none] [&::-webkit-scrollbar]:hidden flex flex-col"
+        className="flex-1 w-full max-w-full min-h-0 overflow-y-auto overflow-x-hidden px-3 sm:px-4 pt-2 pb-1 z-10 box-border chat-scroll-area chat-container [scrollbar-width:none] [&::-webkit-scrollbar]:hidden flex flex-col"
         style={{
           flex: '1 1 0%',
           minHeight: 0,
@@ -1432,10 +1432,10 @@ export function ChatPage() {
           overflowY: 'auto',
           overflowX: 'hidden',
           scrollbarWidth: 'none',
-          paddingBottom: '6px'
+          paddingBottom: '4px'
         }}
       >
-        <div className="w-full flex flex-col gap-1 pb-1">
+        <div className="w-full flex flex-col">
           {filteredMessages.length === 0 ? (
             <div className="min-h-[50vh] my-auto flex flex-col items-center justify-center text-center p-6 select-none">
               <div className="w-14 h-14 rounded-full bg-rose-500/10 border border-rose-500/20 flex items-center justify-center mb-3">
@@ -1512,7 +1512,7 @@ export function ChatPage() {
 
                 {/* Message Row: Left for Incoming, Right for Outgoing */}
                 <div
-                  className={`w-full max-w-full box-border overflow-x-hidden flex flex-col shrink-0 ${isOutgoing ? 'items-end' : 'items-start'} ${isPrevSameSender ? 'mt-0.5' : 'mt-1.5 sm:mt-2'} group relative`}
+                  className={`w-full max-w-full box-border overflow-x-hidden flex flex-col shrink-0 ${isOutgoing ? 'items-end' : 'items-start'} ${isPrevSameSender ? 'mt-0.5' : 'mt-1.5'} group relative`}
                   style={{ flexShrink: 0, minHeight: 'min-content', alignSelf: isOutgoing ? 'flex-end' : 'flex-start', width: '100%', maxWidth: '100%', boxSizing: 'border-box' }}
                 >
                   {/* Quoted Reply Card preview */}
@@ -1838,9 +1838,8 @@ export function ChatPage() {
           boxSizing: 'border-box',
           overflowX: 'hidden',
           bottom: 0,
-          marginBottom: 0,
-          paddingTop: isKeyboardOpen ? '5px' : '7px',
-          paddingBottom: isKeyboardOpen ? '4px' : 'max(6px, calc(env(safe-area-inset-bottom, 0px) + 2px))',
+          paddingTop: isKeyboardOpen ? '4px' : '6px',
+          paddingBottom: isKeyboardOpen ? '4px' : 'max(6px, env(safe-area-inset-bottom, 0px))',
           background: 'rgba(22, 11, 26, 0.98)',
           WebkitFontSmoothing: 'antialiased',
           MozOsxFontSmoothing: 'grayscale'
