@@ -347,7 +347,7 @@ export function ChatPage() {
     partnerMood
   } = useCouple();
 
-  const { openCamera } = useStreak();
+  const { openCamera, openSnap } = useStreak();
   const [activeViewingSnap, setActiveViewingSnap] = useState(null);
 
   // Scoped Chat Theme (persisted in Firestore & localStorage)
@@ -631,6 +631,9 @@ export function ChatPage() {
   // Handle Opening / Viewing Snapchat-Style Pulse Snaps
   const handleOpenSnap = useCallback((snapItem) => {
     setActiveViewingSnap(snapItem);
+    if (openSnap) {
+      openSnap(snapItem);
+    }
     // Mark snap as opened in messages array & localStorage
     setMessages((prev) =>
       prev.map((m) => {
@@ -651,7 +654,7 @@ export function ChatPage() {
         return m;
       })
     );
-  }, []);
+  }, [openSnap]);
 
   // Listen for sent snaps from PulseSnapCameraModal
   useEffect(() => {

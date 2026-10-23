@@ -22,7 +22,8 @@ import {
   User,
   Users,
   SmilePlus,
-  Lock
+  Lock,
+  Flame
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useCouple } from '../../context/CoupleContext';
@@ -280,6 +281,31 @@ export function AppLayout() {
 
                   {/* Space Navigation Grid */}
                   <div className="grid grid-cols-2 gap-2">
+                    {/* Featured: Pulse Snaps & Streaks */}
+                    <Link
+                      to="/snaps"
+                      onClick={() => setIsMoreMenuOpen(false)}
+                      className="col-span-2 p-2.5 rounded-2xl bg-gradient-to-r from-rose-500/25 via-pink-500/20 to-purple-500/25 border border-rose-400/40 flex items-center justify-between hover:border-rose-300 transition-all group shadow-[0_4px_16px_rgba(244,63,94,0.2)]"
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-rose-600 to-pink-500 flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform shrink-0">
+                          <Flame className="w-4 h-4 fill-white" />
+                        </div>
+                        <div className="min-w-0 text-left">
+                          <div className="text-xs font-bold text-white flex items-center gap-1.5">
+                            <span>Pulse Snaps & Streaks</span>
+                            <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-black/40 text-amber-300 border border-amber-400/30">
+                              🔥 12
+                            </span>
+                          </div>
+                          <span className="text-[10px] text-rose-200/80 block truncate">Camera, live filters & daily streaks</span>
+                        </div>
+                      </div>
+                      <span className="text-[10px] font-semibold text-rose-300 group-hover:text-white transition-colors shrink-0">
+                        Open →
+                      </span>
+                    </Link>
+
                     <Link
                       to="/chat"
                       onClick={() => setIsMoreMenuOpen(false)}

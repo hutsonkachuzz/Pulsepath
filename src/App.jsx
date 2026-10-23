@@ -22,6 +22,7 @@ import { GalleryPage } from './pages/GalleryPage';
 import { DatesPage } from './pages/DatesPage';
 import { QuestionPage } from './pages/QuestionPage';
 import { SettingsPage } from './pages/SettingsPage';
+import { SnapsPage } from './pages/SnapsPage';
 
 import { ErrorBoundary } from './components/common/ErrorBoundary';
 import { LoadingScreen } from './components/common/LoadingScreen';
@@ -89,6 +90,7 @@ export default function App() {
                       <Route path="/dates" element={<DatesPage />} />
                       <Route path="/question" element={<QuestionPage />} />
                       <Route path="/settings" element={<SettingsPage />} />
+                      <Route path="/snaps" element={<SnapsPage />} />
                     </Route>
 
                     {/* Catch all redirect to root landing */}

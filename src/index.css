@@ -948,24 +948,57 @@ header.ios-header > *,
    (Strictly isolated via WebKit query so Android Chrome layout remains 100% untouched)
    ========================================================================= */
 @supports (-webkit-touch-callout: none) {
-  /* 1. iPhone 15 Bottom Navigation Dock: Flush to screen bottom with zero safe-area gap */
+  /* 1. iPhone 15 Bottom Navigation Container: Absolute flush attachment with gradient and safe-area */
   .ios-bottom-nav-dock {
-    bottom: 2px !important;
-    left: 8px !important;
-    right: 8px !important;
-    padding-bottom: 0px !important;
-    margin-bottom: 0px !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 99999 !important;
+    padding-bottom: env(safe-area-inset-bottom, 4px) !important;
+    background: linear-gradient(to top, #120914 90%, rgba(18, 9, 20, 0)) !important;
+    margin-bottom: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    pointer-events: none !important;
   }
 
-  /* 2. iPhone 15 Chat Input Bar: Flush to absolute bottom without black space */
+  .ios-bottom-nav-dock > * {
+    pointer-events: auto !important;
+  }
+
+  /* 2. Mandatory Bottom Padding for Scrollable Containers on iPhone 15: Zero Overlap / Zero Clipping */
+  #main-content-scroll,
+  .pulsepath-iphone-frame:not(.chat-container),
+  .feed-container-ios,
+  .main-scroll-container,
+  main:not(.chat-container) {
+    padding-bottom: calc(100px + env(safe-area-inset-bottom, 20px)) !important;
+  }
+
+  /* 3. iPhone 15 Chat Input Bar: Flush to absolute bottom without dead space */
   .ios-chat-footer,
   footer.ios-chat-footer {
-    bottom: 0px !important;
-    padding-bottom: 4px !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 99999 !important;
+    padding-bottom: env(safe-area-inset-bottom, 4px) !important;
     margin-bottom: 0px !important;
+    background: linear-gradient(to top, #160b1a 95%, rgba(22, 11, 26, 0.9)) !important;
   }
 
-  /* 3. iPhone 15 Top Header Razor-Sharp Resolution & Glass Isolation */
+  /* Ensure the chat messages list leaves room for the fixed chat footer on iPhone */
+  .chat-messages-container,
+  .chat-scroll-area {
+    padding-bottom: calc(85px + env(safe-area-inset-bottom, 10px)) !important;
+  }
+
+  /* 4. iPhone 15 Top Header Razor-Sharp Resolution & Glass Isolation */
   .top-header,
   header.top-header {
     background: transparent !important;

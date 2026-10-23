@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { RomanticGreeting } from '../components/home/RomanticGreeting';
 import { InstagramStoriesSection } from '../components/home/InstagramStoriesSection';
@@ -8,9 +9,12 @@ import { CreateStoryModal } from '../components/home/CreateStoryModal';
 import { SharedPostCard } from '../components/home/SharedPostCard';
 import { useCouple } from '../context/CoupleContext';
 import { useAuth } from '../context/AuthContext';
+import { useStreak } from '../context/StreakContext';
+import { StreakBadge } from '../components/snaps/StreakBadge';
+import { PulseSnapViewerModal } from '../components/snaps/PulseSnapViewerModal';
 import { subscribeToMemories, subscribeToStories, updateMemory } from '../services/firebaseService';
 import { ensureImageDataUrl } from '../utils/imageUtils';
-import { Plus, Sparkles, Heart } from 'lucide-react';
+import { Plus, Sparkles, Heart, Camera, Flame, ChevronRight } from 'lucide-react';
 
 /**
  * Mobile-First Spring Animation Variants for Smooth 60fps Mobile Performance
@@ -178,8 +182,20 @@ const DEFAULT_FEED_POSTS = [
 ];
 
 export function HomePage() {
+  const navigate = useNavigate();
   const { couple } = useCouple();
   const { currentUser } = useAuth();
+  const {
+    partnerSnap,
+    partnerSnapStatus,
+    hasUnopenedSnap,
+    streakCount,
+    streakEmoji,
+    openSnap,
+    openCamera,
+    activeViewingSnap,
+    setActiveViewingSnap
+  } = useStreak();
 
   // Firestore memories and custom locally-added posts
   const [dbMemories, setDbMemories] = useState([]);
@@ -335,6 +351,98 @@ export function HomePage() {
         <RomanticGreeting />
       </motion.div>
 
+      {/* Snapchat-Style "Pulse Snaps & Streaks" Interactive Partner Row */}
+      <motion.div variants={widgetPopVariant} className="px-0.5">
+        <div className="relative overflow-hidden rounded-2xl p-3 bg-gradient-to-r from-[#200a2d]/90 via-[#1a0826]/90 to-[#14061e]/90 border border-rose-500/30 shadow-[0_8px_24px_rgba(0,0,0,0.6),0_0_16px_rgba(244,63,94,0.15)] flex items-center justify-between gap-2.5">
+          {/* Subtle Ambient Sheen */}
+          <div className="absolute top-0 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-rose-300/30 to-transparent pointer-events-none" />
+
+          {/* Left: Partner Avatar with Glowing Camera Ring */}
+          <div
+            onClick={() => {
+              if (hasUnopenedSnap && partnerSnap) {
+                openSnap(partnerSnap);
+              } else {
+                openCamera();
+              }
+            }}
+            className="flex items-center gap-2.5 min-w-0 cursor-pointer group flex-1"
+            title={hasUnopenedSnap ? 'Tap to view new snap!' : 'Tap to open camera'}
+          >
+            {/* Glowing Ring */}
+            <div className="relative shrink-0">
+              <div
+                className={`w-11 h-11 rounded-full p-[2.5px] transition-all duration-300 ${
+                  hasUnopenedSnap
+                    ? 'bg-gradient-to-tr from-rose-500 via-pink-400 to-purple-500 shadow-[0_0_14px_rgba(244,63,94,0.6)]'
+                    : 'bg-gradient-to-tr from-rose-500/50 to-purple-500/50 group-hover:scale-105'
+                }`}
+              >
+                <div className="w-full h-full rounded-full overflow-hidden bg-black border border-[#14061e]">
+                  <img
+                    src={partnerSnap?.senderAvatar || 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=300&q=80'}
+                    alt="Mikasa"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform"
+                  />
+                </div>
+              </div>
+              {hasUnopenedSnap && (
+                <span className="absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full bg-rose-500 border border-[#14061e] flex items-center justify-center text-[9px] text-white animate-bounce">
+                  🔥
+                </span>
+              )}
+            </div>
+
+            {/* Partner Info & Status */}
+            <div className="min-w-0 text-left">
+              <div className="flex items-center gap-1.5">
+                <span className="text-xs font-bold text-white group-hover:text-rose-200 transition-colors truncate">
+                  Mikasa 🌸
+                </span>
+                <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30 font-bold shrink-0">
+                  {streakEmoji} {streakCount}
+                </span>
+              </div>
+              <div className="flex items-center gap-1 mt-0.5">
+                {hasUnopenedSnap ? (
+                  <span className="text-[11px] font-semibold text-rose-300 flex items-center gap-1 animate-pulse">
+                    <span className="w-2 h-2 rounded-[2px] bg-rose-500 inline-block" />
+                    <span>New Snap • Tap to open</span>
+                  </span>
+                ) : (
+                  <span className="text-[10.5px] text-rose-200/60 flex items-center gap-1">
+                    <span className="w-2 h-2 rounded-[2px] border border-rose-400/50 inline-block" />
+                    <span>{partnerSnapStatus}</span>
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Right: Camera Action & Snaps Page Link */}
+          <div className="flex items-center gap-1.5 shrink-0">
+            <button
+              type="button"
+              onClick={openCamera}
+              className="px-2.5 py-1.5 rounded-xl bg-gradient-to-tr from-rose-600 to-pink-500 hover:from-rose-500 hover:to-pink-400 text-white shadow-sm flex items-center gap-1 text-[11px] font-bold active:scale-95 transition-all cursor-pointer"
+              title="Capture Pulse Snap"
+            >
+              <Camera className="w-3.5 h-3.5" />
+              <span>Snap</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => navigate('/snaps')}
+              className="p-1.5 rounded-xl bg-white/10 hover:bg-white/15 text-rose-200 hover:text-white transition-all active:scale-95 cursor-pointer border border-white/10"
+              title="View Snaps & Streaks Hub"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      </motion.div>
+
       {/* 2. Instagram-Style Stories Section for Two (Eren & Mikasa) */}
       <motion.div variants={widgetPopVariant}>
         <InstagramStoriesSection
@@ -412,6 +520,15 @@ export function HomePage() {
         onClose={() => setIsCreateModalOpen(false)}
         onPostCreated={handlePostCreated}
       />
+
+      {/* Snapchat-Style Full-Screen Snap Viewer Modal */}
+      {activeViewingSnap && (
+        <PulseSnapViewerModal
+          snap={activeViewingSnap}
+          onClose={() => setActiveViewingSnap(null)}
+          onReactHeart={() => {}}
+        />
+      )}
     </motion.div>
   );
 }
