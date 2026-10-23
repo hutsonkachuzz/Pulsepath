@@ -218,8 +218,8 @@ export function AppLayout() {
 
   return (
     <div
-      className="min-h-[100dvh] h-[100dvh] w-full flex items-center justify-center overflow-hidden bg-romantic-dark text-white relative"
-      style={{ minHeight: '100dvh', height: '100dvh' }}
+      className="w-full flex items-center justify-center overflow-hidden bg-romantic-dark text-white relative"
+      style={{ minHeight: 'var(--app-height, 100dvh)', height: 'var(--app-height, 100dvh)' }}
     >
       {/* 4-Corner Crystal Subtle Entry Glow */}
       <FourCornerCrystalGlow />
@@ -229,8 +229,8 @@ export function AppLayout() {
 
       {/* Strictly Locked Mobile Device Frame Container (Edge-to-edge on mobile, 430px smartphone bezel on desktop) */}
       <div
-        className="w-full h-full min-h-[100dvh] h-[100dvh] flex items-center justify-center relative z-10"
-        style={{ minHeight: '100dvh', height: '100dvh' }}
+        className="w-full h-full flex items-center justify-center relative z-10"
+        style={{ minHeight: 'var(--app-height, 100dvh)', height: 'var(--app-height, 100dvh)' }}
       >
         <IPhoneMockupFrame
           onOpenQuickAction={() => setIsFabOpen(!isFabOpen)}

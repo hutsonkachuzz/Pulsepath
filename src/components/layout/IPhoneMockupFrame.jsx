@@ -55,13 +55,13 @@ export function IPhoneMockupFrame({
           - Screen >= 640px: Max 430px centered smartphone frame with titanium bezel, hardware buttons, and ambient glow shadow.
       */}
       <div
-        className="relative w-full sm:w-[420px] lg:w-[430px] max-w-[430px] h-[100dvh] sm:h-[880px] sm:max-h-[calc(100dvh-2rem)]
+        className="relative w-full sm:w-[420px] lg:w-[430px] max-w-[430px] h-full sm:h-[880px] sm:max-h-[calc(100dvh-2rem)]
           border-0 sm:border-[12px] border-[#1e132b] rounded-none sm:rounded-[52px]
           bg-[#12071d] shadow-none sm:shadow-[0_25px_80px_rgba(0,0,0,0.92),0_0_40px_rgba(244,63,94,0.18),inset_0_0_0_1.5px_rgba(255,255,255,0.18),inset_0_0_0_3px_#10071c]
           flex flex-col will-change-[transform,opacity]"
         style={{
-          height: '100dvh',
-          maxHeight: '100dvh',
+          height: 'var(--app-height, 100dvh)',
+          maxHeight: 'var(--app-height, 100dvh)',
           transform: 'translate3d(0, 0, 0)',
           backfaceVisibility: 'hidden'
         }}
@@ -117,7 +117,7 @@ export function IPhoneMockupFrame({
             <header
               className="top-header shrink-0 sticky top-0 z-[1000] w-full px-3.5 sm:px-4 flex items-center justify-between text-white shadow-md relative bg-[#14071f]"
               style={{
-                paddingTop: 'calc(env(safe-area-inset-top, 47px) + 8px)',
+                paddingTop: 'max(10px, calc(env(safe-area-inset-top, 0px) + 6px))',
                 paddingBottom: '10px',
                 background: '#14071f'
               }}
@@ -268,7 +268,7 @@ export function IPhoneMockupFrame({
             <div
               className="ios-bottom-nav-dock absolute left-0 right-0 z-[50] flex flex-col items-center pointer-events-none select-none px-3"
               style={{
-                bottom: '4px',
+                bottom: 'max(14px, calc(env(safe-area-inset-bottom, 0px) + 6px))',
                 marginBottom: 0,
                 paddingBottom: 0
               }}

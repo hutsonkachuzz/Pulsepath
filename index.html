@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content" />
     <meta name="theme-color" content="#0B0813" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -16,15 +16,19 @@
     <title>PulsePath ❤️ Our Private World</title>
     <script>
       (function() {
-        function setVh() {
-          var vh = window.innerHeight * 0.01;
-          document.documentElement.style.setProperty('--vh', vh + 'px');
+        function updateViewportHeights() {
+          var vv = window.visualViewport;
+          var h = vv ? vv.height : window.innerHeight;
+          document.documentElement.style.setProperty('--app-height', h + 'px');
+          document.documentElement.style.setProperty('--visual-viewport-height', h + 'px');
+          document.documentElement.style.setProperty('--vh', (h * 0.01) + 'px');
         }
-        setVh();
-        window.addEventListener('resize', setVh, { passive: true });
-        window.addEventListener('orientationchange', setVh, { passive: true });
+        updateViewportHeights();
+        window.addEventListener('resize', updateViewportHeights, { passive: true });
+        window.addEventListener('orientationchange', updateViewportHeights, { passive: true });
         if (window.visualViewport) {
-          window.visualViewport.addEventListener('resize', setVh, { passive: true });
+          window.visualViewport.addEventListener('resize', updateViewportHeights, { passive: true });
+          window.visualViewport.addEventListener('scroll', updateViewportHeights, { passive: true });
         }
       })();
     </script>

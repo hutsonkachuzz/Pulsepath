@@ -875,7 +875,7 @@ header.ios-header,
   left: 0;
   right: 0;
   z-index: 1000;
-  padding-top: calc(env(safe-area-inset-top, 47px) + 8px);
+  padding-top: max(10px, calc(env(safe-area-inset-top, 0px) + 6px));
   padding-bottom: 10px;
   background: #14071f !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -911,7 +911,7 @@ header.ios-header > *,
 }
 
 .chat-layout-ios {
-  height: 100dvh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -928,15 +928,37 @@ header.ios-header > *,
   padding-bottom: calc(75px + env(safe-area-inset-bottom, 12px));
 }
 
+/* Global Bottom Navigation Dock Positioning (Android & iOS Parity) */
+.ios-bottom-nav-dock {
+  position: absolute;
+  bottom: max(14px, calc(env(safe-area-inset-bottom, 0px) + 6px));
+  left: 0;
+  right: 0;
+  z-index: 50;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+  background: transparent;
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.ios-bottom-nav-dock > * {
+  pointer-events: auto;
+}
+
 /* =========================================================================
    IPHONE 15 / IOS SAFARI / PWA STANDALONE PIXEL-PERFECT OVERRIDES
    (Strictly isolated via WebKit query so Android Chrome layout remains 100% untouched)
    ========================================================================= */
 @supports (-webkit-touch-callout: none) {
-  /* 1. iPhone 15 Bottom Navigation Container: Absolute flush attachment (~4px sleek clearance, no 34px dead gap) */
+  /* 1. iPhone 15 Bottom Navigation Container: Clean elevation above home indicator */
   .ios-bottom-nav-dock {
-    position: fixed !important;
-    bottom: 4px !important;
+    position: absolute !important;
+    bottom: max(14px, calc(env(safe-area-inset-bottom, 0px) + 6px)) !important;
     left: 0 !important;
     right: 0 !important;
     z-index: 50 !important;
@@ -964,14 +986,14 @@ header.ios-header > *,
     padding-bottom: calc(75px + env(safe-area-inset-bottom, 12px)) !important;
   }
 
-  /* 3. iPhone 15 Chat Input Bar: Flush to absolute bottom without dead space */
+  /* 3. iPhone 15 Chat Input Bar: Dynamic positioning above keyboard and home indicator */
   .ios-chat-footer,
   footer.ios-chat-footer {
+    position: relative !important;
     bottom: 0 !important;
     left: 0 !important;
     right: 0 !important;
     z-index: 40 !important;
-    padding-bottom: 4px !important;
     margin-bottom: 0px !important;
     background: rgba(22, 11, 26, 0.98) !important;
   }

@@ -719,6 +719,65 @@ export function ChatPage() {
     };
   }, [messages.length, partnerTyping, scrollToBottom]);
 
+  // Mobile virtual keyboard & visualViewport height tracking (WhatsApp-style responsiveness)
+  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
+
+  useEffect(() => {
+    const handleViewport = () => {
+      if (window.visualViewport) {
+        const isKb = window.visualViewport.height < window.innerHeight - 80;
+        setIsKeyboardOpen(isKb);
+        // Lock window scroll so header remains pinned at the top
+        window.scrollTo(0, 0);
+        document.body.scrollTop = 0;
+        scrollToBottom(false);
+      }
+    };
+
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', handleViewport);
+      window.visualViewport.addEventListener('scroll', handleViewport);
+      return () => {
+        window.visualViewport.removeEventListener('resize', handleViewport);
+        window.visualViewport.removeEventListener('scroll', handleViewport);
+      };
+    }
+  }, [scrollToBottom]);
+
+  // Handle input focus/blur for iOS & Android keyboard events
+  useEffect(() => {
+    const input = chatInputRef.current;
+    if (!input) return;
+
+    const onFocus = () => {
+      setIsKeyboardOpen(true);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        document.body.scrollTop = 0;
+        scrollToBottom(false);
+      }, 50);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        scrollToBottom(false);
+      }, 250);
+    };
+
+    const onBlur = () => {
+      setIsKeyboardOpen(false);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        scrollToBottom(false);
+      }, 50);
+    };
+
+    input.addEventListener('focus', onFocus);
+    input.addEventListener('blur', onBlur);
+    return () => {
+      input.removeEventListener('focus', onFocus);
+      input.removeEventListener('blur', onBlur);
+    };
+  }, [scrollToBottom]);
+
   const handleInputChange = (e) => {
     setInputText(e.target.value);
     wsService.sendTyping(true);
@@ -919,9 +978,10 @@ export function ChatPage() {
       animate={{ opacity: 1, scale: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.96, y: -12 }}
       transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
-      className={`w-full max-w-full h-[100dvh] flex flex-col overflow-hidden relative isolate select-none box-border chat-container ${themeStyles.container} bg-gradient-to-b from-[#13071f] via-[#10061a] to-[#0c0414] text-white font-sans`}
+      className={`w-full max-w-full h-full flex flex-col overflow-hidden relative isolate select-none box-border chat-container ${themeStyles.container} bg-gradient-to-b from-[#13071f] via-[#10061a] to-[#0c0414] text-white font-sans`}
       style={{
-        height: '100dvh',
+        height: '100%',
+        maxHeight: '100%',
         display: 'flex',
         flexDirection: 'column',
         overflow: 'hidden',
@@ -986,7 +1046,7 @@ export function ChatPage() {
       <header
         className="top-header shrink-0 sticky top-0 z-[1000] w-full max-w-full box-border px-2.5 sm:px-4 pl-[max(0.625rem,env(safe-area-inset-left,0px))] pr-[max(0.625rem,env(safe-area-inset-right,0px))] flex items-center justify-between border-b border-white/[0.08] shadow-md relative bg-[#14071f]"
         style={{
-          paddingTop: 'calc(env(safe-area-inset-top, 47px) + 8px)',
+          paddingTop: 'max(10px, calc(env(safe-area-inset-top, 0px) + 6px))',
           paddingBottom: '10px',
           background: '#14071f'
         }}
@@ -1758,11 +1818,10 @@ export function ChatPage() {
           overflowX: 'hidden',
           bottom: 0,
           marginBottom: 0,
-          paddingBottom: '4px',
+          paddingBottom: isKeyboardOpen ? '4px' : 'max(6px, calc(env(safe-area-inset-bottom, 0px) + 2px))',
           background: 'rgba(22, 11, 26, 0.98)',
           WebkitFontSmoothing: 'antialiased',
-          MozOsxFontSmoothing: 'grayscale',
-          transform: 'translate3d(0, 0, 0)'
+          MozOsxFontSmoothing: 'grayscale'
         }}
       >
         {/* Replying Banner */}
