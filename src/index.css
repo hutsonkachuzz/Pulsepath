@@ -913,8 +913,8 @@ header.ios-header,
   left: 0;
   right: 0;
   z-index: 1000;
-  padding-top: max(10px, calc(env(safe-area-inset-top, 0px) + 6px));
-  padding-bottom: 10px;
+  padding-top: max(8px, calc(env(safe-area-inset-top, 0px) + 4px));
+  padding-bottom: 8px;
   background: #14071f !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   -webkit-font-smoothing: antialiased;
@@ -1046,6 +1046,8 @@ header.ios-header > *,
   .top-header,
   header.top-header {
     background: #14071f !important;
+    padding-top: max(8px, calc(env(safe-area-inset-top, 0px) + 4px)) !important;
+    padding-bottom: 8px !important;
     -webkit-font-smoothing: antialiased !important;
     -moz-osx-font-smoothing: grayscale !important;
     text-shadow: none !important;
